@@ -28,7 +28,7 @@ Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself 
 ----------------------------------------------------------------------------------
 
 ## Tools (software)
-**This section should describe the various software tools required for various areas, and provide url links for the more common software used**
+**_This section should describe the various software tools required for various areas, and provide url links for the more common software used_**
 
 For the most part, you are free to use what ever tools you want. The exception is custom map creation, where you are currently limited to the tools released by TIS.
 
@@ -44,15 +44,14 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 ### Custom Mapping:
 
 
-
 ----------------------------------------------------------------------------------
 
 ## Mod structure
-**Describe the various files and folders that make up a mod, and their purpose**
+**_Describe the various files and folders that make up a mod, and their purpose_**
 
 mod.info (required file)
 
-media (required folder)
+media/ (required folder)
 
 media/scripts (optional folder)
 
@@ -72,3 +71,44 @@ media/lua/server
 
 
 ----------------------------------------------------------------------------------
+
+## The Scripts
+**_Describe the various types of blocks in the scripts/*.txt files, such as module, item, recipe and the key=value types._**
+
+### The module block
+
+### The item block
+
+### The recipe block
+
+
+----------------------------------------------------------------------------------
+
+## The Code
+
+### Introduction
+**Basic lua intro and tutorial (not pz specific) with links to more advanced lua tutorials online._**
+
+### Zomboid's Lua Component
+**_Describe pz lua/kahlua component, how it interacts with the java, and how lua is used in pz in general._**
+
+### The Vanilla Lua
+**_Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
+
+### Zomboid's API
+
+### Decompiling The Java
+
+### Performance Tips
+
+### Code Snippits
+
+
+----------------------------------------------------------------------------------
+
+## Map Making
+
+
+----------------------------------------------------------------------------------
+
+## 3d Models
