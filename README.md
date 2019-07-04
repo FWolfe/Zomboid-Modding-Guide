@@ -87,7 +87,7 @@ media/lua/server
 ## The Code
 
 ### Introduction
-**Basic lua intro and tutorial (not pz specific) with links to more advanced lua tutorials online._**
+**_Basic lua intro and tutorial (not pz specific) with links to more advanced lua tutorials online._**
 
 ### Zomboid's Lua Component
 **_Describe pz lua/kahlua component, how it interacts with the java, and how lua is used in pz in general._**
@@ -96,8 +96,10 @@ media/lua/server
 **_Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
 ### Zomboid's API
+**_Describe major parts of the api, common globals and the event system._**
 
 ### Decompiling The Java
+**_Brief outline of installing and working with a decompiler._**
 
 ### Performance Tips
 
@@ -106,9 +108,9 @@ media/lua/server
 
 ----------------------------------------------------------------------------------
 
-## Map Making
+## The Maps
 
 
 ----------------------------------------------------------------------------------
 
-## 3d Models
+## The Models
