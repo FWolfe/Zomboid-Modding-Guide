@@ -1,6 +1,7 @@
 Project Zomboid Modding Guide
 
 ## Intro
+**This section should provide a basic description of the various areas of modding, and basic hints as to difficulty and tools required**
 
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
@@ -8,7 +9,7 @@ Project Zomboid Modding Guide
 This can be done with little (or none) coding knowledge and minimal tools. Item and recipe definitions are inside standard .txt documents, although these txt files must conform to a specific syntax and style.
 
 ### Code changes, advanced items and recipes
-Being able to add or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).
+Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).
 Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn. The internet is scattered with tutorials.
 
 
@@ -25,6 +26,8 @@ Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself 
 ----------------------------------------------------------------------------------
 
 ## Tools (software)
+**This section should describe the various software tools required for various areas, and provide url links for the more common software used**
+
 For the most part, you are free to use what ever tools you want. The exception is custom map creation, where you are currently limited to the tools released by TIS.
 
 ### Text Editors:
@@ -43,19 +46,27 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 
 ----------------------------------------------------------------------------------
 
-Mod structure
+## Mod structure
+**Describe the various files and folders that make up a mod, and their purpose**
 
 mod.info (required file)
+
 media (required folder)
 
 media/scripts (optional folder)
+
 media/models (optional folder)
+
 media/textures (optional folder)
+
 media/sounds (optional folder)
 
 media/lua (optional folder) required for lua scripts
+
 media/lua/client
+
 media/lua/shared
+
 media/lua/server
 
 
