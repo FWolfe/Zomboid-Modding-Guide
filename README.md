@@ -1,4 +1,8 @@
-Project Zomboid Modding Guide
+# Project Zomboid Modding Guide
+
+**This document is very much a Work-In-Progress.
+The goal is to create a solid 1-stop spot for how to mod TheIndieStone's Project Zomboid, covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippits for the more common tasks.
+Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time.**
 
 ## Intro
 **This section should provide a basic description of the various areas of modding, and basic hints as to difficulty and tools required**
@@ -12,13 +16,9 @@ This can be done with little (or none) coding knowledge and minimal tools. Item 
 Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).
 Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn. The internet is scattered with tutorials.
 
-
-
 ### 3d Models
 
-
 ### Textures
-
 
 ### Map Making
 
@@ -38,7 +38,6 @@ Used for the creation of custom items, vehicles and weapons. Blender is the comm
 
 ### Image Editor:
 If your doing custom icons, textures, maps or 3d models you'll need one of these. Paint.NET, Photoshop and GIMP are the most used, but whatever supports the .png format will work.
-
 
 ### Custom Mapping:
 
@@ -68,7 +67,6 @@ media/lua/client
 media/lua/shared
 
 media/lua/server
-
 
 
 ----------------------------------------------------------------------------------
