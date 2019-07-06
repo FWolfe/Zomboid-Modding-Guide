@@ -98,15 +98,16 @@ Used for 3d models of weapons, vehicles etc.
 ## The Code
 
 ### Introduction
-**_Basic lua intro and tutorial (not pz specific) with links to more advanced lua tutorials online._**
-
-Project Zomboid's code is a 2-language system, using both Java and Lua. The main engine and API features are primarly Java,
+Project Zomboid's code is a 2-language system, using both Java and Lua. The main engine and API features are primarily Java,
 with large chunks of the logic in Lua.  Most modding is done to the Lua component, while the Java component is generally considered non-moddable.
 
-_Note: The java can be modified, but requires knowlage of java, decompiling and recompiling the .class files. Mods with Java edits also can not be installed using normal methods, these files need to go directly to zomboid's install directory. Modifing the Java is beyond the scope of this document._
+_Note: The java can be modified, but requires knowledge of java, decompiling and recompiling the .class files. Mods with Java edits also can not be installed using normal methods, these files need to go directly to Zomboid's install directory. Modifying the Java is beyond the scope of this document._
 
-Unlike the Java, Lua can be editted with the text editor of your choice and requires no other tools. _Those familiar with basic Lua can skip to the next section._
+Unlike the Java, Lua can be edited with the text editor of your choice and requires no other tools. _Those familiar with basic Lua can skip ahead._
 
+Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can throw off people coming from other languages (ordered lists/arrays, unordered lists/maps/dicts and objects in Lua are all the same thing: a table)
+
+**_Include a brief lua tutorial here, and links to more online._**
 
 ### Zomboid's Lua Component
 **_Describe pz lua/kahlua component, how it interacts with the java, and how lua is used in pz in general._**
@@ -122,7 +123,7 @@ Unlike the Java, Lua can be editted with the text editor of your choice and requ
 
 ### Performance Tips
 
-### Code Snippits
+### Code Snippets
 
 
 ----------------------------------------------------------------------------------
