@@ -134,6 +134,39 @@ imports {
 ### The fixing block
 
 ### The sound block
+PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
+If you don't have a sound listed here, the first time it plays it will get added to the audio tab, its MP radius will get set to 20 and a message will appear in the console: `WARNING: no GameSound called "MySound", adding a new one`  
+The vanilla shotgun blast is defined in the `item` block as:
+```
+    SwingSound	=	FirearmShotgun,
+    SoundRadius	=	200,
+```
+And in the `sound` block as:
+```
+sound FirearmShotgun
+{
+    category = Item,
+    clip
+    {
+        event = Weapons/Firearm/shotgun2,
+        distanceMax = 200, /* SoundRadius in items.txt */
+    }
+}
+```
+The SwingSound must match the sound name, while the `SoundRadius` in the item block is only the zombie agro distance, `distanceMax` is the range other players will hear it.  
+`event` only applies to sound clips that are in the vanilla soundbanks, for custom sounds we need to use `file`
+```
+sound Remington870
+{
+    category = Item,
+    clip
+    {
+        file = media/sound/Remington870.ogg,
+        distanceMax = 200,
+    }
+}
+```
+
 
 ### The vehicle block
 
