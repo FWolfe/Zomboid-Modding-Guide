@@ -50,8 +50,8 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 ## Mod structure
 **_Describe the various files and folders that make up a mod, and their purpose_**
 
-#### mod.info (required file)
-This file can be created/editted with any text editor. It contains details like your mod's ID, name, description, preview image etc.
+#### mod.info
+This file can be created/edited with any text editor. It contains details like your mod's ID, name, description, preview image etc.
 ```
 name=My First Mod
 poster=poster.png
@@ -61,44 +61,38 @@ url=https://theindiestone.com/forums/
 ```
 
 #### media/
-*required folder*  
 The actual content of your mod will be placed in subfolders of the `media` folder
 
 #### media/scripts/
-*optional folder*  
 This folder contains text files with item, vehicles and recipe definitions. See the section on Scripts for more information.
 
 #### media/models/
-*optional folder*  
 Used for 3d models of weapons, vehicles etc.
 
 #### media/textures/
-*optional folder*  
+Icons, 3d model textures and the like go in here, in `.png` format. Pay attention to the naming scheme: Item icons should use the `Item_` prefix.
 
 #### media/sounds/
-*optional folder*  
+Sound files go in here, in `.wav` or `.ogg` format.
 
 #### media/lua/
-*optional folder but required for lua scripts*  
 If your mod includes any .lua scripts, you will need this folder as well as at least one of the subfolders listed below. Any .lua files need to go in the subfolders, not directly in this one.
 
-#### media/lua/client/
-*optional folder*  
-Used for client-side scripts. UI elements, context menus timed actions and the like.
-
 #### media/lua/shared/
-*optional folder*  
+Used for lua scripts shared by client and server-side logic. These are the first Lua scripts that get loaded.
+
+#### media/lua/client/
+Used for client-side scripts. UI elements, context menus timed actions and the like. These get loaded after any 'shared' lua scripts.
 
 #### media/lua/server/
-*optional folder*  
-
+Used for servers-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
 
 ----------------------------------------------------------------------------------
 
 ## The Scripts
 Items, recipes, vehicles and similar stuff is defined in .txt files in the `media/scripts/` directory. These files are seperated into various `{ block }` types. Within these blocks exist items properties: its name, how much it weighs, what type of item it is, how much time recipes take, what ingredients are required, how much horsepower a vehicle has, etc.
 
-Each of the various block types has different attribute/value types, and syntax can vary slightly from other block types (items vs recipes), but the overall format is a same:
+Each of the various block types has different attribute/value types, and syntax can vary slightly from other block types (items vs recipes), but the overall format is the same:
 
 A basic example:
 ```
@@ -120,7 +114,8 @@ module MyMod {
 In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
 The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
 Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that have already exist in the `Base` module you will **overwrite** them.  
-If you have lots of items or don't want to conflict with any existing items or other mods its best to use a custom (or multiple) module names. Sometimes for basic mods or compatibility reasons it may be more better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
+If you have lots of items or don't want to conflict with any existing items or other mods its best to use a custom (or multiple) module names. Common practice is to use the same name as the mod ID.  
+Sometimes for basic mods or compatibility reasons it may be more better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
 
 ### The imports block
 Often for recipes (and some other blocks) you will need to reference items from other modules. Normally when a item exists in a different script module, you have to use the full name such as `Base.Nails` to reference it. By declaring a `imports` block you can skip the module prefix on the item and just use `Nails`
@@ -163,9 +158,7 @@ Lua is designed to be a simple and lightweight language, without a lot of bells 
 ### Zomboid's Lua Component
 Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarly in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
 lacks the performance of pure lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
-Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work.
-
-
+Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
 ### The Vanilla Lua
 **_Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
