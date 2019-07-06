@@ -7,8 +7,6 @@
 **_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
 ## Intro
-**This section should provide a basic description of the various areas of modding, and basic hints as to difficulty and tools required**
-
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
 ### Adding basic items and recipes
@@ -48,7 +46,7 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 ----------------------------------------------------------------------------------
 
 ## Mod structure
-**_Describe the various files and folders that make up a mod, and their purpose_**
+This section contains a brief description of the file and folder structure that makes up a mod. Your mod may include other folders in addition to these, but these ones are the most common.
 
 #### mod.info
 This file can be created/edited with any text editor. It contains details like your mod's ID, name, description, preview image etc.
@@ -153,7 +151,7 @@ Unlike the Java, Lua can be edited with the text editor of your choice and requi
 
 Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can initially throw people coming from other languages.
 
-**_Include a brief lua tutorial here, and links to more online._**
+**_TODO: Include a brief lua tutorial here, and links to more online._**
 
 ### Zomboid's Lua Component
 Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarly in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
@@ -161,15 +159,17 @@ lacks the performance of pure Lua, but provides a almost seamless integration of
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
 ### The Vanilla Lua
-**_Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
+**_TODO: Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
 ### Zomboid's API
-**_Describe major parts of the api, common globals and the event system._**
-
-### Decompiling The Java
-**_Brief outline of installing and working with a decompiler._**
+**_TODO: Describe major parts of the api, common globals and the event system._**
 
 ### Performance Tips
+
+### Overwriting Vanilla Code
+
+### Decompiling The Java
+**_TODO: Brief outline of installing and working with a decompiler._**
 
 ### Code Snippets
 
@@ -177,10 +177,10 @@ Java classes and functions are 'exported' to Lua providing normal access to them
 ----------------------------------------------------------------------------------
 
 ## The Maps
-**_Describe the tools and process for creating custom maps._**
+**_TODO: Describe the tools and process for creating custom maps._**
 
 
 ----------------------------------------------------------------------------------
 
 ## The Models
-**_Describe process for loading importing and loading custom 3d models in game._**
+**_TODO: Describe process for loading importing and loading custom 3d models in game._**
