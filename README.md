@@ -129,7 +129,7 @@ imports {
     Base
 }
 ```
-*Note: when loading mods scipts, PZ will log a warning to the console if you do not import Base. This warning can be ignored if not-importing was intentional.*
+*Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored if not-importing was intentional.*
 
 
 ### The item block
