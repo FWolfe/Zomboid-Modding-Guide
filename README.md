@@ -112,7 +112,9 @@ module MyMod {
 In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
 The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
 Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that already exist in the `Base` module you will **overwrite** them.  
+
 If you have lots of items or don't want to conflict with any existing items or other mods its best to use a custom (or multiple) module names. Common practice is to use the same name as the mod ID.  
+
 Sometimes for basic mods or compatibility reasons it may be better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
 
 ### The imports block
@@ -135,6 +137,7 @@ imports {
 
 ### The sound block
 PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
+
 If you don't have a sound listed here, the first time it plays it will get added to the audio tab, its MP radius will get set to 20 and a message will appear in the console: `WARNING: no GameSound called "MySound", adding a new one`  
 The vanilla shotgun blast is defined in the `item` block as:
 ```
@@ -153,7 +156,7 @@ sound FirearmShotgun
     }
 }
 ```
-The SwingSound must match the sound name, while the `SoundRadius` in the item block is only the zombie agro distance, `distanceMax` is the range other players will hear it.  
+The `SwingSound` must match the sound name, while the `SoundRadius` in the item block is *only the zombie agro distance*, `distanceMax` is the range other players will hear it.  
 `event` only applies to sound clips that are in the vanilla soundbanks, for custom sounds we need to use `file`
 ```
 sound Remington870
