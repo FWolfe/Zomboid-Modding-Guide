@@ -165,13 +165,16 @@ Java classes and functions are 'exported' to Lua providing normal access to them
 **_TODO: Describe major parts of the api, common globals and the event system._**
 
 ### Performance Tips
+**_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
 
 ### Overwriting Vanilla Code
+**_TODO: File vs Function overwrites and compatibility issues._**
 
 ### Decompiling The Java
 **_TODO: Brief outline of installing and working with a decompiler._**
 
 ### Code Snippets
+**_TODO: Commonly used bits._**
 
 
 ----------------------------------------------------------------------------------
