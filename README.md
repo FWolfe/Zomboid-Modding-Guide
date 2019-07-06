@@ -79,21 +79,28 @@ Used for 3d models of weapons, vehicles etc.
 *optional folder*  
 
 #### media/lua/
-*optional folder but required for lua scripts*
+*optional folder but required for lua scripts*  
+If your mod includes any .lua scripts, you will need this folder as well as at least one of the subfolders listed below. Any .lua files need to go in the subfolders, not directly in this one.
 
-#### media/lua/client
+#### media/lua/client/
+*optional folder*  
+Used for client-side scripts. UI elements, context menus timed actions and the like.
 
-#### media/lua/shared
+#### media/lua/shared/
+*optional folder*  
 
-#### media/lua/server
+#### media/lua/server/
+*optional folder*  
 
 
 ----------------------------------------------------------------------------------
 
 ## The Scripts
-**_Describe the various types of blocks in the scripts/*.txt files, such as module, item, recipe and the key=value types._**
+Items, recipes, vehicles and similar stuff is defined in .txt files in the `media/scripts/` directory. These files are seperated into various `{ block }` types. Within these blocks exist items properties: its name, how much it weighs, what type of item it is, how much time recipes take, what ingredients are required, how much horsepower a vehicle has, etc.
 
-example:
+Each of the various block types has different attribute/value types, and syntax can vary slightly from other block types (items vs recipes), but the overall format is a same:
+
+A basic example:
 ```
 module MyMod {
     imports {
@@ -101,10 +108,10 @@ module MyMod {
     }
     item MyItem
     {
-        Type				=		Normal,
-        DisplayName			=		My First Item,
-        Icon				=		MyIcon,
-        Weight				=		0.1,
+        Type         = Normal,
+        DisplayName  = My First Item,
+        Icon         = MyIcon,
+        Weight       = 0.1,
     }
 }
 ```
@@ -154,7 +161,11 @@ Lua is designed to be a simple and lightweight language, without a lot of bells 
 **_Include a brief lua tutorial here, and links to more online._**
 
 ### Zomboid's Lua Component
-**_Describe pz lua/kahlua component, how it interacts with the java, and how lua is used in pz in general._**
+Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarly in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
+lacks the performance of pure lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
+Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work.
+
+
 
 ### The Vanilla Lua
 **_Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
