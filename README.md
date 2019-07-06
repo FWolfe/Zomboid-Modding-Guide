@@ -12,11 +12,13 @@
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
 ### Adding basic items and recipes
-This can be done with little (or none) coding knowledge and minimal tools. Item and recipe definitions are inside standard .txt documents, although these txt files must conform to a specific syntax and style.
+This can be done with little (or none) coding knowledge and minimal tools. Item and recipe definitions are inside standard .txt documents, although these txt files must conform to a specific syntax and style.  
+See https://github.com/FWolfe/Zomboid-Modding-Guide#the-scripts
 
 ### Code changes, advanced items and recipes
-Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).
-Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn. The internet is scattered with tutorials.
+Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).  
+Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn.  
+The internet is scattered with tutorials.
 
 ### 3d Models
 
@@ -59,20 +61,26 @@ description=Basic example mod
 url=https://theindiestone.com/forums/
 ```
 
-#### media/ (required folder)
+#### media/
+*required folder*  
 The actual content of your mod will be placed in subfolders of the `media` folder
 
-#### media/scripts (optional folder)
+#### media/scripts/
+*optional folder*  
 This folder contains text files with item, vehicles and recipe definitions. See the section on Scripts for more information.
 
-#### media/models (optional folder)
+#### media/models/
+*optional folder*  
 Used for 3d models of weapons, vehicles etc.
 
-#### media/textures (optional folder)
+#### media/textures/
+*optional folder*  
 
-#### media/sounds (optional folder)
+#### media/sounds/
+*optional folder*  
 
-#### media/lua (optional folder) required for lua scripts
+#### media/lua/
+*optional folder but required for lua scripts*
 
 #### media/lua/client
 
@@ -88,7 +96,7 @@ Used for 3d models of weapons, vehicles etc.
 
 example:
 ```
-module MyFirst {
+module MyMod {
     imports {
         Base
     }
@@ -103,8 +111,20 @@ module MyFirst {
 ```
 
 ### The module block
+In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
+The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
+Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that have already exist in the `Base` module you will **overwrite** them.  
+If you have lots of items or don't want to conflict with any existing items or other mods its best to use a custom (or multiple) module names. Sometimes for basic mods or compatibility reasons it may be more better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
 
 ### The imports block
+Often for recipes (and some other blocks) you will need to reference items from other modules. Normally when a item exists in a different script module, you have to use the full name such as `Base.Nails` to reference it. By declaring a `imports` block you can skip the module prefix on the item and just use `Nails`
+```
+imports {
+    Base
+}
+```
+*Note: when loading mods scipts, PZ will log a warning to the console if you do not import Base. This warning can be ignored if not-importing was intentional.*
+
 
 ### The item block
 
