@@ -49,25 +49,36 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 ## Mod structure
 **_Describe the various files and folders that make up a mod, and their purpose_**
 
-mod.info (required file)
+#### mod.info (required file)
+This file can be created/editted with any text editor. It contains details like your mod's ID, name, description, preview image etc.
+```
+name=My First Mod
+poster=poster.png
+id=MyFirst
+description=Basic example mod
+url=https://theindiestone.com/forums/
+```
 
-media/ (required folder)
+#### media/ (required folder)
+The actual content of your mod will be placed in subfolders of the `media` folder
 
-media/scripts (optional folder)
+#### media/scripts (optional folder)
+This folder contains text files with item, vehicles and recipe definitions. See the section on Scripts for more information.
 
-media/models (optional folder)
+#### media/models (optional folder)
+Used for 3d models of weapons, vehicles etc.
 
-media/textures (optional folder)
+#### media/textures (optional folder)
 
-media/sounds (optional folder)
+#### media/sounds (optional folder)
 
-media/lua (optional folder) required for lua scripts
+#### media/lua (optional folder) required for lua scripts
 
-media/lua/client
+#### media/lua/client
 
-media/lua/shared
+#### media/lua/shared
 
-media/lua/server
+#### media/lua/server
 
 
 ----------------------------------------------------------------------------------
@@ -89,6 +100,14 @@ media/lua/server
 ### Introduction
 **_Basic lua intro and tutorial (not pz specific) with links to more advanced lua tutorials online._**
 
+Project Zomboid's code is a 2-language system, using both Java and Lua. The main engine and API features are primarly Java,
+with large chunks of the logic in Lua.  Most modding is done to the Lua component, while the Java component is generally considered non-moddable.
+
+_Note: The java can be modified, but requires knowlage of java, decompiling and recompiling the .class files. Mods with Java edits also can not be installed using normal methods, these files need to go directly to zomboid's install directory. Modifing the Java is beyond the scope of this document._
+
+Unlike the Java, Lua can be editted with the text editor of your choice and requires no other tools. _Those familiar with basic Lua can skip to the next section._
+
+
 ### Zomboid's Lua Component
 **_Describe pz lua/kahlua component, how it interacts with the java, and how lua is used in pz in general._**
 
@@ -109,8 +128,10 @@ media/lua/server
 ----------------------------------------------------------------------------------
 
 ## The Maps
+**_Describe the tools and process for creating custom maps._**
 
 
 ----------------------------------------------------------------------------------
 
 ## The Models
+**_Describe process for loading importing and loading custom 3d models in game._**
