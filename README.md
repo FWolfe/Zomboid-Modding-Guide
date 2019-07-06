@@ -2,7 +2,7 @@
 
 **_This document is very much a Work-In-Progress._**
 
-**_The goal is to create a solid 1-stop spot for how to mod TheIndieStone's Project Zomboid, covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippits for the more common tasks._**
+**_The goal is to create a solid 1-stop spot for how to mod TheIndieStone's Project Zomboid, covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippets for the more common tasks._**
 
 **_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
@@ -86,12 +86,37 @@ Used for 3d models of weapons, vehicles etc.
 ## The Scripts
 **_Describe the various types of blocks in the scripts/*.txt files, such as module, item, recipe and the key=value types._**
 
+example:
+```
+module MyFirst {
+    imports {
+        Base
+    }
+    item MyItem
+    {
+        Type				=		Normal,
+        DisplayName			=		My First Item,
+        Icon				=		MyIcon,
+        Weight				=		0.1,
+    }
+}
+```
+
 ### The module block
+
+### The imports block
 
 ### The item block
 
 ### The recipe block
 
+### The evolvedrecipe block
+
+### The fixing block
+
+### The sound block
+
+### The vehicle block
 
 ----------------------------------------------------------------------------------
 
