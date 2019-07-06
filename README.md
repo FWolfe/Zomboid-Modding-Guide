@@ -13,7 +13,6 @@
 
 ### Adding basic items and recipes
 This can be done with little (or none) coding knowledge and minimal tools. Item and recipe definitions are inside standard .txt documents, although these txt files must conform to a specific syntax and style.  
-See #the-scripts
 
 ### Code changes, advanced items and recipes
 Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).  
