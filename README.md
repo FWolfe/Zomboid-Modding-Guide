@@ -85,7 +85,7 @@ Used for lua scripts shared by client and server-side logic. These are the first
 Used for client-side scripts. UI elements, context menus timed actions and the like. These get loaded after any 'shared' lua scripts.
 
 #### media/lua/server/
-Used for servers-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
+Used for server-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
 
 ----------------------------------------------------------------------------------
 
@@ -113,18 +113,18 @@ module MyMod {
 ### The module block
 In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
 The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
-Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that have already exist in the `Base` module you will **overwrite** them.  
+Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that already exist in the `Base` module you will **overwrite** them.  
 If you have lots of items or don't want to conflict with any existing items or other mods its best to use a custom (or multiple) module names. Common practice is to use the same name as the mod ID.  
-Sometimes for basic mods or compatibility reasons it may be more better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
+Sometimes for basic mods or compatibility reasons it may be better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
 
 ### The imports block
-Often for recipes (and some other blocks) you will need to reference items from other modules. Normally when a item exists in a different script module, you have to use the full name such as `Base.Nails` to reference it. By declaring a `imports` block you can skip the module prefix on the item and just use `Nails`
+Often for recipes and other blocks you will need to reference items from other modules. Normally when a item exists in a different script module, you have to use the full name such as `Base.Nails` to reference it. By declaring a `imports` block you can skip the module prefix on the item and just use `Nails`
 ```
 imports {
     Base
 }
 ```
-*Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored if not-importing was intentional.*
+*Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored unless you intented to import.*
 
 
 ### The item block
@@ -151,13 +151,13 @@ _Note: The java can be modified, but requires knowledge of java, decompiling and
 
 Unlike the Java, Lua can be edited with the text editor of your choice and requires no other tools. _Those familiar with basic Lua can skip ahead._
 
-Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can throw off people coming from other languages (ordered lists/arrays, unordered lists/maps/dicts and objects in Lua are all the same thing: a table)
+Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can initially throw people coming from other languages.
 
 **_Include a brief lua tutorial here, and links to more online._**
 
 ### Zomboid's Lua Component
 Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarly in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
-lacks the performance of pure lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
+lacks the performance of pure Lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
 ### The Vanilla Lua
