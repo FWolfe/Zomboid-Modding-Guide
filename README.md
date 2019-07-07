@@ -18,8 +18,13 @@ Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself 
 The internet is scattered with tutorials.
 
 ### 3d Models
+For build 40 and below, 3d art for Project Zomboid primarily consists of weapon models and vehicles. At this time all 3d mods fall into one of these 2 types.  Models are in a custom .txt format.
+The processes of exporting from your modelling app and importing in PZ is fairly simple, though initial positioning, scaling and rotation can take a bit of tweaking. Minor coding is required to tell Zomboid to load the custom models.
+
+Build 41 is expected to bring additional 3d models such as clothing and static items used in timed actions, and a different model format.
 
 ### Textures
+
 
 ### Map Making
 
@@ -88,7 +93,7 @@ Used for server-side scripts. Item spawning, core farming, weather and other ser
 ----------------------------------------------------------------------------------
 
 ## The Scripts
-Items, recipes, vehicles and similar stuff is defined in .txt files in the `media/scripts/` directory. These files are seperated into various `{ block }` types. Within these blocks exist items properties: its name, how much it weighs, what type of item it is, how much time recipes take, what ingredients are required, how much horsepower a vehicle has, etc.
+Items, recipes, vehicles and similar stuff is defined in .txt files in the `media/scripts/` directory. These files are separated into various `{ block }` types. Within these blocks exist items properties: its name, how much it weighs, what type of item it is, how much time recipes take, what ingredients are required, how much horsepower a vehicle has, etc.
 
 Each of the various block types has different attribute/value types, and syntax can vary slightly from other block types (items vs recipes), but the overall format is the same:
 
@@ -124,12 +129,62 @@ imports {
     Base
 }
 ```
-*Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored unless you intented to import.*
+*Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored unless you intended to import.*
 
 
 ### The item block
+**_TODO: explain the item block, the various types of items and valid property differences between types._**
 
 ### The recipe block
+Recipes are one form of crafting in Zomboid. They take input 'ingredients' (food, tools, items, etc) and produce a output item.   
+Pay attention to the syntax differences between `item` blocks and `recipe` blocks. Items use the familiar `property = value,` syntax while recipes use `property:value,` and `=` are used strictly for item counts.
+
+In its most basic form, a recipe has the following structure:
+```
+recipe Open Box of Nails
+{
+    NailsBox,
+
+    Result:Nails=20,
+    Sound:PutItemInBag,
+    Time:5.0,
+}
+```
+The first line `NailsBox,` is our input item, followed by a blank line. Input items are destroyed on recipe creation unless `keep` has been specified (more on that later).  
+`Result:Nails=20,` is obviously the output item, `=20` is the number of this item to give the player. **Note** this number is multiplied by the resulting item's `count =` property in its `item` block definition. Nails have `count = 5`, so our end result is `20 * 5 = 100 Nails`  
+`Sound` is the audio clip to play and `Time` how long this action takes.
+
+Naturally the reverse of this recipe is:
+```
+recipe Place Nails in Box
+{
+    Nails=100,
+
+    Result:NailsBox,
+    Sound:PutItemInBag,
+    Time:5.0,
+}
+```
+A slightly more advanced recipe that uses multiple ingredients which can be different and calls lua functions:
+```
+recipe Slice Fillet
+{
+    keep KitchenKnife/HuntingKnife,
+    Bass/Catfish/Perch/Crappie/Panfish/Pike/Trout,
+
+    Result:FishFillet=2,
+    Sound:SliceMeat,
+    Time:50.0,
+    OnTest:CutFish_TestIsValid,
+    OnCreate:CutFish_OnCreate,
+    Category:Cooking,
+    OnGiveXP:Give10CookingXP,
+}
+```
+Here you can see the ingredients are a knife and a fish. `keep` is declared before the knife to ensure it isn't destroyed after, and `/` is used to separate valid items (ie: KitchenKnife **OR** HuntingKnife).  
+`OnTest` and `OnCreate` are *global* Lua functions called, the first for testing if the recipe is valid, and the second when the recipe has finished.  
+`Category` controls which tab this recipe appears on in the player's Build Window. You can easily define custom tabs simply by using custom values here.  
+`OnGiveXP` is another *global* Lua function. There are many predefined for giving various xp values to different skills, or you can create your own function.
 
 ### The evolvedrecipe block
 
@@ -172,6 +227,7 @@ sound Remington870
 
 
 ### The vehicle block
+**_TODO: Outline syntax differences, template files, and important properties._**
 
 ----------------------------------------------------------------------------------
 
@@ -187,11 +243,16 @@ Unlike the Java, Lua can be edited with the text editor of your choice and requi
 
 Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can initially throw people coming from other languages.
 
+### New To Programming
 **_TODO: Include a brief lua tutorial here, and links to more online._**
 
+### New To Lua
+**_TODO: Highlight the differences and concepts in Lua compared to more common languages._**
+
 ### Zomboid's Lua Component
-Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarly in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
+Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarily in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
 lacks the performance of pure Lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
+
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
 ### The Vanilla Lua
@@ -211,6 +272,12 @@ Java classes and functions are 'exported' to Lua providing normal access to them
 
 ### Code Snippets
 **_TODO: Commonly used bits._**
+
+
+----------------------------------------------------------------------------------
+
+## Translations
+**_TODO: Describe the process of creating and supporting mod translations._**
 
 
 ----------------------------------------------------------------------------------
