@@ -2,7 +2,7 @@
 
 **_This document is very much a Work-In-Progress._**
 
-**_The goal is to create a solid 1-stop spot for how to mod TheIndieStone's Project Zomboid, covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippets for the more common tasks._**
+**_The goal is to create a solid one-stop-spot for how to mod TheIndieStone's [Project Zomboid](https://projectzomboid.com), covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippets for the more common tasks._**
 
 **_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
@@ -14,7 +14,7 @@ This can be done with little (or none) coding knowledge and minimal tools. Item 
 
 ### Code changes, advanced items and recipes
 Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).  
-Knowledge of the Lua scripting language is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn.  
+Knowledge of the [Lua programming language](https://www.lua.org/) is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn.  
 The internet is scattered with tutorials.
 
 ### 3d Models
@@ -37,13 +37,13 @@ Build 41 is expected to bring additional 3d models such as clothing and static i
 For the most part, you are free to use what ever tools you want. The exception is custom map creation, where you are currently limited to the tools released by TIS.
 
 ### Text Editors:
-Used in all areas of modding. Notepad++ is often the preferred editor for windows OS's (it also runs amazingly well on linux with wine)
+Used in all areas of modding. [Notepad++](https://notepad-plus-plus.org) is often the preferred editor for windows OS's (it also runs amazingly well on linux with wine)
 
 ### 3d Modelling:
-Used for the creation of custom items, vehicles and weapons. Blender is the common choice as its free, and import/export scripts for PZ's model format exist. Any 3d app can be used to make your models, with blender doing the final conversion.
+Used for the creation of custom items, vehicles and weapons. [Blender](https://blender.org) is the common choice as its free, and import/export scripts for PZ's model format exist. Any 3d app can be used to make your models, with blender doing the final conversion.
 
 ### Image Editor:
-If your doing custom icons, textures, maps or 3d models you'll need one of these. Paint.NET, Photoshop and GIMP are the most used, but whatever supports the .png format will work.
+If your doing custom icons, textures, maps or 3d models you'll need one of these. Paint.NET, Photoshop and [GIMP](https://gimp.org) are the most used, but whatever supports the .png format will work.
 
 ### Custom Mapping:
 
@@ -193,7 +193,8 @@ Here you can see the ingredients are a knife and a fish. `keep` is declared befo
 ### The sound block
 PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
 
-If you don't have a sound listed here, the first time it plays it will get added to the audio tab, its MP radius will get set to 20 and a message will appear in the console: `WARNING: no GameSound called "MySound", adding a new one`  
+If you don't have a sound listed here, the first time it plays it will get added to the audio tab, its MP radius will get set to 20 and a message will appear in the console: `WARNING: no GameSound called "MySound", adding a new one`
+
 The vanilla shotgun blast is defined in the `item` block as:
 ```
     SwingSound	=	FirearmShotgun,
@@ -265,7 +266,39 @@ Java classes and functions are 'exported' to Lua providing normal access to them
 **_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
 
 ### Overwriting Vanilla Code
-**_TODO: File vs Function overwrites and compatibility issues._**
+A big advantage with large parts of the game logic in Lua means vanilla code can **replaced**, not just added on to. Meaning core parts of the game logic can be modified. Overwriting vanilla code comes with risks though:
+
+**_The more you replace the more likely it is to break across Zomboid versions, and more likely to be incompatible with other mods_**
+
+A common mistake is blindly copying a vanilla file into a mod with a few minor edits. If that file changes next Zomboid update, you need to check and redo your work. If some other mod also has a modified version of that file, then one mod will overwrite the other. Following a few basic rules will drastically help compatibility and reduce potential breakage:
+
+**Always overwrite as little as possible to achieve your goal. Don't replace a whole file if you can do it by overwriting a single function.**  
+
+Using custom tooltips for items as a example (many mods include custom tooltips), the file that handles these tooltips is `client/ISUI/ISToolTipInv.lua` and the method that draws the tooltip is `ISToolTipInv:render()`.  
+So we could just copy that whole file and edit our render function, but that's likely to cause compatibility issues and entirely pointless anyways. `ISToolTipInv` is a *global* lua table, we can simply go:
+```lua
+function ISToolTipInv:render()
+    -- ... some custom code ...
+end
+```
+This can be done from any file, without having to replace the original.
+
+**Store the original function in a local variable. If your overwrite doesn't need to run, call the original.**
+
+To solve the problem that many different types of mods want to overwrite the `:render()` method at the same time (ie: weapon and food mods), always store the functions you overwrite in a local variable, so you can call it if you dont need to run your custom code. A food related mod doesn't need to show custom tooltips for weapons and vice versa.  
+Run a check early in your overwrite to see if its valid or if you can use the original callback.
+```lua
+local original_render = ISToolTipInv.render
+function ISToolTipInv:render()
+    if not CONDITION then
+        original_render(self)
+    end
+    -- ... some custom code ...
+end
+```
+By calling the original 2 mods overwriting the same function have higher chances of being compatible, and it will be more resilient to minor changes in the original vanilla code.
+
+Obviously This not only applies to tooltips, but all overwrites.
 
 ### Decompiling The Java
 **_TODO: Brief outline of installing and working with a decompiler._**
