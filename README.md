@@ -99,10 +99,15 @@ Each of the various block types has different attribute/value types, and syntax 
 
 A basic example:
 ```
+/** This line is a comment. anything inside these brackets is ignored **/
 module MyMod {
     imports {
         Base
     }
+    /** Comments can be multiline like this
+        and can appear anywhere in the file, even in the
+        middle of a { block }
+    **/
     item MyItem
     {
         Type         = Normal,
@@ -262,8 +267,8 @@ Java classes and functions are 'exported' to Lua providing normal access to them
 ### Zomboid's API
 **_TODO: Describe major parts of the api, common globals and the event system._**
 
-### Performance Tips
-**_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
+### Decompiling The Java
+**_TODO: Brief outline of installing and working with a decompiler._**
 
 ### Overwriting Vanilla Code
 A big advantage with large parts of the game logic in Lua means vanilla code can **replaced**, not just added on to. Meaning core parts of the game logic can be modified. Overwriting vanilla code comes with risks though:
@@ -300,8 +305,11 @@ By calling the original 2 mods overwriting the same function have higher chances
 
 Obviously This not only applies to tooltips, but all overwrites.
 
-### Decompiling The Java
-**_TODO: Brief outline of installing and working with a decompiler._**
+### Performance Tips
+**_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
+
+### Code Quality Tips
+**_TODO: Outline consistent syntax, indentation levels, mixing tabs/spaces and documenting._**
 
 ### Code Snippets
 **_TODO: Commonly used bits._**
