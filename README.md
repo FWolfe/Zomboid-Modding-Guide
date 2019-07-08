@@ -261,6 +261,34 @@ lacks the performance of pure Lua, but provides a almost seamless integration of
 
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
+One thing to bear in mind is functions called from Lua will often return Java objects. Java Arrays and Lists in particular can catch people off guard, since they are quite different from a lua table list. For example iterating over a basic table list:
+```lua
+local tbl = {'a', 'b', 'c'}
+for index, value in ipairs(tbl) do
+    print(index, value)
+end
+-- or we could do this:
+for index=1, #tbl do -- use # to get the size of the table
+    print(index, tbl[index])
+end
+
+-- prints:
+-- 1    a
+-- 2    b
+-- 3    c
+```
+Now say we have a player object want a list of the known recipes:
+```lua
+local known = player:getKnownRecipes() -- returns a Java List, not a Lua table.
+```
+Unlike a normal table list, our the first entry in the Java List is index 0 (not 1), and `ipairs` will no longer work, nor will `#` to get the size, or `[]` to get the value at a specified index. For this we need to use the methods in Java's List class `:size()` and `:get()`
+```lua
+for index=0, known:size() -1 do
+    print(index, known:get(index))
+end
+```
+The upside of this is Java Lists and Arrays have shortcut methods not available in standard Lua tables, like using `:contains("some string")` to test if a string is in the List. Doing this with a Lua table requires iterating over the table manually checking each index.
+
 ### The Vanilla Lua
 **_TODO: Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
