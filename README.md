@@ -7,10 +7,10 @@
 **_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
 ## Contents
-1. [Introduction](#Introduction)
-1. [Required Tools](#required-tools-software)
-1. [Mod Structure](#mod-structure)
-1. [The Scripts](#the-scripts)  
+* [Introduction](#Introduction)
+* [Required Tools](#required-tools-software)
+* [Mod Structure](#mod-structure)
+* [The Scripts](#the-scripts)  
   * [The module block]()  
   * [The imports block]()  
   * [The item block]()  
@@ -19,7 +19,7 @@
   * [The fixing block]()  
   * [The sound block]()  
   * [The vehicle block]()  
-1. [The Code](#the-code)  
+* [The Code](#the-code)  
   * [New To Programming]()  
   * [New To Lua]()  
   * [Zomboid's Lua Component]()  
@@ -31,9 +31,9 @@
   * [Performance Tips]()  
   * [Code Quality Tips]()  
   * [Code Snippets]()  
-1. [Translations](#translations)  
-1. [The Maps](#)  
-1. [The Models](#)  
+* [Translations](#translations)  
+* [The Maps](#)  
+* [The Models](#)  
 
 ## Introduction
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
