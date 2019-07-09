@@ -307,12 +307,14 @@ Tables can operate as a sorted or unsorted list, or a in a object-like structure
 
 When used as a sorted list, table indexes start at 1, not 0
 
+Both `,` and `;` are acceptable separators for entries in a table.
+
 Using `MyTable.myFunction()` calls a function in a table normally, while using `MyTable:myFunction()` calls it as a object method. It is the same as `MyTable.myFunction(MyTable)`
 
 A example of how strange (and versatile) tables can be:
 ```lua
 -- mixed table
-local MyTable = {"a", "b", "c", nil, d = 5, [6] = 'e', f = function(self) print(self.d) end }
+local MyTable = {"a", "b"; "c", nil, d = 5; [6] = 'e', f = function(self) print(self.d) end }
 
 -- as a sorted list
 print(MyTable[1]) -- prints "a"
