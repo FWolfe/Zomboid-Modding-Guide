@@ -291,7 +291,52 @@ Lua is designed to be a simple and lightweight language, without a lot of bells 
 
 ----------------------------------------
 ### New To Lua
-**_TODO: Highlight the differences and concepts in Lua compared to more common languages._**
+One major difference between Lua and other languages is the syntax. Unlike C based languages, `{ }` are not used to contain code blocks. Brackets are used for declaring tables. Instead a keyword such as `then`, `else`, `do` etc followed by `end` contain a block.
+
+`;` is not normally used in Lua to specify line endings, although it can be (it will be ignored by the parser). The exception is multiple statements on a single line. `if true then x = 1 end` requires no `;` but `if true then x = 1; y = 2 end` does.
+
+`( )` are not required around conditionals, except for complex ones.
+
+Variables are *global*, unless declared with the `local` keyword. (A odd choice for the language, since one of Lua's core philosophies is to declare with as smallest scope possible)
+
+Lua has very few data types. Strings, Numbers, Tables and Userdata (data and objects from other languages, normally C). Integers and floats are treated the same.
+
+There are no objects, sorted/ordered lists or unsorted/unordered lists. These are all the same thing in Lua: a table.
+
+Tables can operate as a sorted or unsorted list, or a in a object-like structure with inheritance (metatables). They can also operate as all 3, at the same time.
+
+When used as a sorted list, table indexes start at 1, not 0
+
+Using `MyTable.myFunction()` calls a function in a table normally, while using `MyTable:myFunction()` calls it as a object method. It is the same as `MyTable.myFunction(MyTable)`
+
+A example of how strange (and versatile) tables can be:
+```lua
+-- mixed table
+local MyTable = {"a", "b", "c", nil, d = 5, [6] = 'e', f = function(self) print(self.d) end }
+
+-- as a sorted list
+print(MyTable[1]) -- prints "a"
+print(MyTable[2]) -- prints "c"
+print(MyTable[3]) -- prints "b"
+print(MyTable[4]) -- nil
+print(MyTable[5]) -- also nil, was never defined.
+print(MyTable[6]) -- prints "e"
+print(#MyTable) -- prints 3. Stops at first nil
+
+for i, v in ipairs(MyTable) do
+    print(i, v) -- prints "1 a", "2 b" and "3 c". Stops at first nil
+end
+
+-- as a unsorted list
+print(MyTable.d) -- prints 5
+print(MyTable['d']) -- prints 5
+
+-- with functions
+MyTable:f() -- prints 5
+MyTable.f() -- errors, no 'self' argument passed
+MyTable.f(MyTable) -- prints 5
+MyTable.f({d = 7}) -- prints 7
+```
 
 ----------------------------------------
 ### Zomboid's Lua Component
@@ -300,7 +345,7 @@ lacks the performance of pure Lua, but provides a almost seamless integration of
 
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
 
-One thing to bear in mind is functions called from Lua will often return Java objects. Java Arrays and Lists in particular can catch people off guard, since they are quite different from a lua table list. For example iterating over a basic table list:
+One thing to bear in mind is functions called from Lua will often return Java objects. Java Arrays and Lists in particular can catch people off guard, since they are quite different from a Lua table list. For example iterating over a Lua table list:
 ```lua
 local tbl = {'a', 'b', 'c'}
 for index, value in ipairs(tbl) do
@@ -320,7 +365,7 @@ Now say we have a player object want a list of the known recipes:
 ```lua
 local known = player:getKnownRecipes() -- returns a Java List, not a Lua table.
 ```
-Unlike a normal table list, our the first entry in the Java List is index 0 (not 1), and `ipairs` will no longer work, nor will `#` to get the size, or `[]` to get the value at a specified index. For this we need to use the methods in Java's List class `:size()` and `:get()`
+Unlike a Lua table list, our the first entry in the Java List is index 0 (not 1), and `ipairs` will no longer work, nor will `#` to get the size, or `[]` to get the value at a specified index. For this we need to use the methods in Java's List class `:size()` and `:get()`
 ```lua
 for index=0, known:size() -1 do
     print(index, known:get(index))
@@ -372,7 +417,7 @@ function ISToolTipInv:render()
     -- ... some custom code ...
 end
 ```
-By calling the original 2 mods overwriting the same function have higher chances of being compatible, and it will be more resilient to minor changes in the original vanilla code.
+By calling the original, multiple mods overwriting the same function have higher chances of being compatible and it will be more resilient to minor changes in the original vanilla code.
 
 Obviously This not only applies to tooltips, but all overwrites.
 
@@ -389,7 +434,7 @@ When you overwrite vanilla code load order is not as important as vanilla Lua fi
 
 If the original mod's file is `shared/OriginalCode.lua`. Naming your patch `shared/NewCode.lua` will cause your file to load first (N before O), but naming it `shared/PatchCode.lua` will load after (O before P).  
 
-*Check the console.log and pay attention to which files get loaded first*
+*Tip: Check the console.log and pay attention to which files get loaded first*
 
 Another more robust solution is to **_delay overwrite code using events_**. Assume the mod we want to overwrite the function `someRandomFun()` in a mod:
 ```lua
