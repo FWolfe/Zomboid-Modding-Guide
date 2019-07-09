@@ -362,7 +362,7 @@ Obviously This not only applies to tooltips, but all overwrites.
 
 
 ### Overwriting Another Mod's Code (3rd Party Patching)
-Sometimes it is necessary to overwrite or patch code in another mod. There can be many reasons for needing to do this, such as the mod is broken, or outdated, or incompatible with your current version.
+Sometimes it is necessary to overwrite or patch code in another mod. There can be many reasons for needing to do this, such as the mod is broken, or outdated, or incompatible with another mod.
 
 Overwriting another mod's code is essentially the same as overwriting vanilla code, and the same basic rules apply. However there are additional things to consider:
 
@@ -406,7 +406,7 @@ local original_fun
 local function newRandomFun()
     -- do something
 end
--- add a even callback that performs the overwrite
+-- add a event callback that performs the overwrite
 Events.OnGameBoot.Add(function()
     Events.OnPlayerUpdate.Remove(someRandomFun) -- remove the callback
     Events.OnPlayerUpdate.Add(newRandomFun) -- add our new callback
