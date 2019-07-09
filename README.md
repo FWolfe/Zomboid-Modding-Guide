@@ -6,7 +6,36 @@
 
 **_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
-## Intro
+## Contents
+1. [Introduction](#)
+1. [Required Tools](#)
+1. [Mod Structure](#)
+1. [The Scripts](#)  
+  1. [The module block]()  
+  1. [The imports block]()  
+  1. [The item block]()  
+  1. [The recipe block]()  
+  1. [The evolvedrecipe block]()  
+  1. [The fixing block]()  
+  1. [The sound block]()  
+  1. [The vehicle block]()  
+1. [The Code](#)  
+  1. [New To Programming]()  
+  1. [New To Lua]()  
+  1. [Zomboid's Lua Component]()  
+  1. [The Vanilla Lua]()  
+  1. [Zomboid's API]()  
+  1. [Decompiling The Java]()  
+  1. [Overwriting Vanilla Code]()  
+  1. [Overwriting Another Mod's Code]()  
+  1. [Performance Tips]()  
+  1. [Code Quality Tips]()  
+  1. [Code Snippets]()  
+1. [Translations](#)  
+1. [The Maps](#)  
+1. [The Models](#)  
+
+## Introduction
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
 ### Adding basic items and recipes
@@ -31,7 +60,7 @@ Build 41 is expected to bring additional 3d models such as clothing and static i
 
 ----------------------------------------------------------------------------------
 
-## Tools (software)
+## Required Tools (software)
 **_This section should describe the various software tools required for various areas, and provide url links for the more common software used_**
 
 For the most part, you are free to use what ever tools you want. The exception is custom map creation, where you are currently limited to the tools released by TIS.
@@ -238,8 +267,6 @@ sound Remington870
 ----------------------------------------------------------------------------------
 
 ## The Code
-
-### Introduction
 Project Zomboid's code is a 2-language system, using both Java and Lua. The main engine and API features are primarily Java,
 with large chunks of the logic in Lua.  Most modding is done to the Lua component, while the Java component is generally considered non-moddable.
 
@@ -332,6 +359,71 @@ end
 By calling the original 2 mods overwriting the same function have higher chances of being compatible, and it will be more resilient to minor changes in the original vanilla code.
 
 Obviously This not only applies to tooltips, but all overwrites.
+
+
+### Overwriting Another Mod's Code (3rd Party Patching)
+Sometimes it is necessary to overwrite or patch code in another mod. There can be many reasons for needing to do this, such as the mod is broken, or outdated, or incompatible with your current version.
+
+Overwriting another mod's code is essentially the same as overwriting vanilla code, and the same basic rules apply. However there are additional things to consider:
+
+**Lua files from all active mods load in alphabetical order.**
+
+When you overwrite vanilla code load order is not as important as vanilla Lua files load before mod Lua files. But when patching mod's code load order matters. You can't overwrite code that hasn't been loaded yet! One way to solve this problem is by ensuring your file gets loaded after by exploiting the alphabetical name load order.  
+
+If the original mod's file is `shared/OriginalCode.lua`. Naming your patch `shared/NewCode.lua` will cause your file to load first (N before O), but naming it `shared/PatchCode.lua` will load after (O before P).  
+
+*Check the console.log and pay attention to which files get loaded first*
+
+Another more robust solution is to **_delay overwrite code using events_**. Assume the mod we want to overwrite the function `someRandomFun()` in a mod:
+```lua
+local original_fun
+local function newRandomFun()
+    -- do something
+end
+-- add a even callback that performs the overwrite
+Events.OnGameBoot.Add(function()
+    -- store the original function. Note we dont store until we're ready to overwrite
+    original_fun = someRandomFun
+    -- now overwrite
+    someRandomFun = newRandomFun
+end)
+```
+Exactly which event to use to inject your overwrites is up to you, and dependant on the nature of the overwrite and *where* the code is. Some events don't trigger serverside, some won't trigger clientside etc.
+
+**Overwriting event callback functions requires removing the callback first.**
+
+If the function you want to replace has already been as a event callback, simply overwriting the function won't help.
+You need to remove the callback, then add the new one. If the original mod's file is:
+```lua
+function someRandomFun()
+    -- do something
+end
+Events.OnPlayerUpdate.Add(someRandomFun)
+```
+Then we need to make some adjustments to our overwrite:
+```lua
+local original_fun
+local function newRandomFun()
+    -- do something
+end
+-- add a even callback that performs the overwrite
+Events.OnGameBoot.Add(function()
+    Events.OnPlayerUpdate.Remove(someRandomFun) -- remove the callback
+    Events.OnPlayerUpdate.Add(newRandomFun) -- add our new callback
+
+    -- store the original function.
+    original_fun = someRandomFun
+    -- overwrite is probably redundant at this point, but best done just in case.
+    someRandomFun = newRandomFun
+end)
+```
+
+**NOTE:** Removing a event callback is only possible if you can get a reference to the callback function. Functions declared local, then added to a event **can not** be removed from the event. Nor can anonymous functions such as:
+```lua
+Events.OnGameBoot.Add(function()
+    -- do something
+end)
+```
 
 ### Performance Tips
 **_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
