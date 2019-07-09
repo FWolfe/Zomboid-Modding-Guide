@@ -1,10 +1,5 @@
 # Project Zomboid Modding Guide
-
 **_This document is very much a Work-In-Progress._**
-
-**_The goal is to create a solid one-stop-spot for how to mod TheIndieStone's [Project Zomboid](https://projectzomboid.com), covering all aspects of modding, tools required, tips and tricks, as well as examples and code snippets for the more common tasks._**
-
-**_Much of the current modding information is in outdated tutorials, scattered in forum posts, and locked away in the brains of modders and other community members. Ideally by hosting a universal guide on Github, it will be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
 
 ## Contents
 * [Introduction](#Introduction)
@@ -38,6 +33,10 @@
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 ## Introduction
+**_The goal of this guide is to have a one-stop-spot for how to mod TheIndieStone's [Project Zomboid](https://projectzomboid.com), covering all aspects of modding, tools required, tips and tricks, as well as tutorials, examples and useful code snippets._**
+
+**_Much of the current modding information is in outdated tutorials, scattered in forum posts, etc. Ideally by hosting a universal guide on Github, it can be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
+
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
 ### Adding basic items and recipes
