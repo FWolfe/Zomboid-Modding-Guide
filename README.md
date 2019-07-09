@@ -35,6 +35,8 @@
 * [The Maps](#the-maps)  
 * [The Models](#the-models)  
 
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 ## Introduction
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
@@ -59,7 +61,7 @@ Build 41 is expected to bring additional 3d models such as clothing and static i
 
 
 ----------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------
 ## Required Tools (software)
 **_This section should describe the various software tools required for various areas, and provide url links for the more common software used_**
 
@@ -78,7 +80,7 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 
 
 ----------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------
 ## Mod structure
 This section contains a brief description of the file and folder structure that makes up a mod. Your mod may include other folders in addition to these, but these ones are the most common.
 
@@ -120,7 +122,7 @@ Used for client-side scripts. UI elements, context menus timed actions and the l
 Used for server-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
 
 ----------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------
 ## The Scripts
 Items, recipes, vehicles and similar stuff is defined in .txt files in the `media/scripts/` directory. These files are separated into various `{ block }` types. Within these blocks exist items properties: its name, how much it weighs, what type of item it is, how much time recipes take, what ingredients are required, how much horsepower a vehicle has, etc.
 
@@ -147,6 +149,7 @@ module MyMod {
 }
 ```
 
+----------------------------------------
 ### The module block
 In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
 The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
@@ -156,6 +159,7 @@ If you have lots of items or don't want to conflict with any existing items or o
 
 Sometimes for basic mods or compatibility reasons it may be better to use a existing module name such as `Base`. Creating a extra module namespace for a few simple items is not always the best option: unnecessary  modules are very minor performance hit.
 
+----------------------------------------
 ### The imports block
 Often for recipes and other blocks you will need to reference items from other modules. Normally when a item exists in a different script module, you have to use the full name such as `Base.Nails` to reference it. By declaring a `imports` block you can skip the module prefix on the item and just use `Nails`
 ```
@@ -166,9 +170,11 @@ imports {
 *Note: when loading mods scripts, PZ will log a warning to the console if you do not import Base. This warning can be ignored unless you intended to import.*
 
 
+----------------------------------------
 ### The item block
 **_TODO: explain the item block, the various types of items and valid property differences between types._**
 
+----------------------------------------
 ### The recipe block
 Recipes are one form of crafting in Zomboid. They take input 'ingredients' (food, tools, items, etc) and produce a output item.   
 Pay attention to the syntax differences between `item` blocks and `recipe` blocks. Items use the familiar `property = value,` syntax while recipes use `property:value,` and `=` are used strictly for item counts.
@@ -220,10 +226,13 @@ Here you can see the ingredients are a knife and a fish. `keep` is declared befo
 `Category` controls which tab this recipe appears on in the player's Build Window. You can easily define custom tabs simply by using custom values here.  
 `OnGiveXP` is another *global* Lua function. There are many predefined for giving various xp values to different skills, or you can create your own function.
 
+----------------------------------------
 ### The evolvedrecipe block
 
+----------------------------------------
 ### The fixing block
 
+----------------------------------------
 ### The sound block
 PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
 
@@ -261,11 +270,12 @@ sound Remington870
 ```
 
 
+----------------------------------------
 ### The vehicle block
 **_TODO: Outline syntax differences, template files, and important properties._**
 
 ----------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------
 ## The Code
 Project Zomboid's code is a 2-language system, using both Java and Lua. The main engine and API features are primarily Java,
 with large chunks of the logic in Lua.  Most modding is done to the Lua component, while the Java component is generally considered non-moddable.
@@ -276,12 +286,15 @@ Unlike the Java, Lua can be edited with the text editor of your choice and requi
 
 Lua is designed to be a simple and lightweight language, without a lot of bells and whistles. It is easy to learn, its syntax is simple and there are a minimal number of built-in functions and modules.  It does include some concepts that can initially throw people coming from other languages.
 
+----------------------------------------
 ### New To Programming
 **_TODO: Include a brief lua tutorial here, and links to more online._**
 
+----------------------------------------
 ### New To Lua
 **_TODO: Highlight the differences and concepts in Lua compared to more common languages._**
 
+----------------------------------------
 ### Zomboid's Lua Component
 Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarily in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
 lacks the performance of pure Lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
@@ -316,15 +329,19 @@ end
 ```
 The upside of this is Java Lists and Arrays have shortcut methods not available in standard Lua tables, like using `:contains("some string")` to test if a string is in the List. Doing this with a Lua table requires iterating over the table manually checking each index.
 
+----------------------------------------
 ### The Vanilla Lua
 **_TODO: Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
+----------------------------------------
 ### Zomboid's API
 **_TODO: Describe major parts of the api, common globals and the event system._**
 
+----------------------------------------
 ### Decompiling The Java
 **_TODO: Brief outline of installing and working with a decompiler._**
 
+----------------------------------------
 ### Overwriting Vanilla Code
 A big advantage with large parts of the game logic in Lua means vanilla code can **replaced**, not just added on to. Meaning core parts of the game logic can be modified. Overwriting vanilla code comes with risks though:
 
@@ -361,6 +378,7 @@ By calling the original 2 mods overwriting the same function have higher chances
 Obviously This not only applies to tooltips, but all overwrites.
 
 
+----------------------------------------
 ### Overwriting Another Mod's Code (3rd Party Patching)
 Sometimes it is necessary to overwrite or patch code in another mod. There can be many reasons for needing to do this, such as the mod is broken, or outdated, or incompatible with another mod.
 
@@ -368,7 +386,7 @@ Overwriting another mod's code is essentially the same as overwriting vanilla co
 
 **Lua files from all active mods load in alphabetical order.**
 
-When you overwrite vanilla code load order is not as important as vanilla Lua files load before mod Lua files. But when patching mod's code load order matters. You can't overwrite code that hasn't been loaded yet! One way to solve this problem is by ensuring your file gets loaded after by exploiting the alphabetical name load order.  
+When you overwrite vanilla code load order is not as important as vanilla Lua files load before mod Lua files. But when patching mod's code load order matters. You can't overwrite code that hasn't been loaded yet. One way to solve this problem is by ensuring your file gets loaded after by exploiting the alphabetical name load order.  
 
 If the original mod's file is `shared/OriginalCode.lua`. Naming your patch `shared/NewCode.lua` will cause your file to load first (N before O), but naming it `shared/PatchCode.lua` will load after (O before P).  
 
@@ -425,16 +443,20 @@ Events.OnGameBoot.Add(function()
 end)
 ```
 
+----------------------------------------
 ### Performance Tips
 **_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
 
+----------------------------------------
 ### Code Quality Tips
 **_TODO: Outline consistent syntax, indentation levels, mixing tabs/spaces and documenting._**
 
+----------------------------------------
 ### Code Snippets
 **_TODO: Commonly used bits._**
 
 
+----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 
 ## Translations
@@ -447,6 +469,7 @@ end)
 **_TODO: Describe the tools and process for creating custom maps._**
 
 
+----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 
 ## The Models
