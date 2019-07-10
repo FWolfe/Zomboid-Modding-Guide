@@ -318,8 +318,8 @@ local MyTable = {"a", "b"; "c", nil, d = 5; [6] = 'e', f = function(self) print(
 
 -- as a sorted list
 print(MyTable[1]) -- prints "a"
-print(MyTable[2]) -- prints "c"
-print(MyTable[3]) -- prints "b"
+print(MyTable[2]) -- prints "b"
+print(MyTable[3]) -- prints "c"
 print(MyTable[4]) -- nil
 print(MyTable[5]) -- also nil, was never defined.
 print(MyTable[6]) -- prints "e"
