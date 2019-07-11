@@ -3,7 +3,9 @@
 
 ## Contents
 * [Introduction](#Introduction)
-* [Required Tools](#required-tools-software)
+  * [About this guide](#about-this-guide)  
+  * [Overview](#overview)  
+  * [Required Tools](#required-tools-software)
 * [Mod Structure](#mod-structure)
 * [The Scripts](#the-scripts)  
   * [The module block](#the-module-block)  
@@ -33,49 +35,55 @@
 ----------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------
 ## Introduction
-**_The goal of this guide is to have a one-stop-spot for how to mod TheIndieStone's [Project Zomboid](https://projectzomboid.com), covering all aspects of modding, tools required, tips and tricks, as well as tutorials, examples and useful code snippets._**
 
-**_Much of the current modding information is in outdated tutorials, scattered in forum posts, etc. Ideally by hosting a universal guide on Github, it can be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time._**
+### About this guide
+The goal of this guide is to have a one-stop-spot for how to mod TheIndieStone's [Project Zomboid](https://projectzomboid.com), covering all aspects of modding, tools required, tips and tricks, as well as tutorials, examples and useful code snippets.
 
+Much of the current modding information is in outdated tutorials, scattered in forum posts, etc. Ideally by hosting a universal guide on Github, it can be collected all in one spot and anyone can contribute new information, corrections or updates as PZ's API changes over time.
+
+This guide is not meant to be a tutorial (although will *contain* tutorials), but a reference for both new and experienced modders.
+
+Contributions to this guide are more then welcome.
+
+----------------------------------------
+### Overview
 "Modding" is a vague term covering multiple areas. Many of these areas sometimes overlap but should be considered separate as they require different skill sets and knowledge.
 
-### Adding basic items and recipes
+#### Adding basic items and recipes
 This can be done with little (or none) coding knowledge and minimal tools. Item and recipe definitions are inside standard .txt documents, although these txt files must conform to a specific syntax and style.  
 
-### Code changes, advanced items and recipes
+#### Code changes, advanced items and recipes
 Being able to add on to or edit Zomboid's code is a major bonus, and where the real power of mods comes in. PZ is coded in a mixture of Java (the main engine) and Lua (the moddable components).  
 Knowledge of the [Lua programming language](https://www.lua.org/) is HIGHLY advised. You'll save yourself a lot of grief and effort learning Lua before diving into this area. Fortunately Lua is a simple language by design, and relatively easy to learn.  
 The internet is scattered with tutorials.
 
-### 3d Models
+#### 3d Models
 For build 40 and below, 3d art for Project Zomboid primarily consists of weapon models and vehicles. At this time all 3d mods fall into one of these 2 types.  Models are in a custom .txt format.
 The processes of exporting from your modelling app and importing in PZ is fairly simple, though initial positioning, scaling and rotation can take a bit of tweaking. Minor coding is required to tell Zomboid to load the custom models.
 
 Build 41 is expected to bring additional 3d models such as clothing and static items used in timed actions, and a different model format.
 
-### Textures
+#### Textures
 
 
-### Map Making
+#### Map Making
 
-
-----------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-## Required Tools (software)
+----------------------------------------
+### Required Tools (software)
 **_This section should describe the various software tools required for various areas, and provide url links for the more common software used_**
 
 For the most part, you are free to use what ever tools you want. The exception is custom map creation, where you are currently limited to the tools released by TIS.
 
-### Text Editors:
+#### Text Editors:
 Used in all areas of modding. [Notepad++](https://notepad-plus-plus.org) is often the preferred editor for windows OS's (it also runs amazingly well on linux with wine)
 
-### 3d Modelling:
+#### 3d Modelling:
 Used for the creation of custom items, vehicles and weapons. [Blender](https://blender.org) is the common choice as its free, and import/export scripts for PZ's model format exist. Any 3d app can be used to make your models, with blender doing the final conversion.
 
-### Image Editor:
+#### Image Editor:
 If your doing custom icons, textures, maps or 3d models you'll need one of these. Paint.NET, Photoshop and [GIMP](https://gimp.org) are the most used, but whatever supports the .png format will work.
 
-### Custom Mapping:
+#### Custom Mapping:
 
 
 ----------------------------------------------------------------------------------
@@ -150,7 +158,7 @@ module MyMod {
 
 ----------------------------------------
 ### The module block
-In the example above, you'll notice the file starts off with `module MyFirst`. All items, recipes and other blocks need to be contained within the module block.  
+In the example above, you'll notice the file starts off with `module MyMod`. All items, recipes and other blocks need to be contained within the module block.  
 The name used is used as a prefix for a item's full name: The item in the example is `MyMod.MyItem`.
 Most (not all) vanilla items use the module `Base`. You are free to use this module as well but be aware defining things like items that already exist in the `Base` module you will **overwrite** them.  
 
@@ -338,11 +346,14 @@ MyTable:f() -- prints 5
 MyTable.f() -- errors, no 'self' argument passed
 MyTable.f(MyTable) -- prints 5
 MyTable.f({d = 7}) -- prints 7
+MyTable['f']() -- errors, no 'self' argument passed
+MyTable['f'](MyTable) -- prints 5
+
 ```
 
 ----------------------------------------
 ### Zomboid's Lua Component
-Those familiar with Lua know there can be minor differences between versions (5.1, 5.2, 5.3) primarily in the modules and methods contained. Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
+Zomboid's Lua is not 'pure' Lua, it is modified Kahlua, a Lua interpreter writen entirely in Java. It
 lacks the performance of pure Lua, but provides a almost seamless integration of the Java and Lua components. Not all Lua modules are implemented such as `io.*` and `os.*`  
 
 Java classes and functions are 'exported' to Lua providing normal access to them, however things like java reflection will not work. These classes and functions are manually specified for export by the Zomboid developers, thus the Lua does not have full access to Java and is at least partially sandboxed.
@@ -386,6 +397,16 @@ The upside of this is Java Lists and Arrays have shortcut methods not available 
 ----------------------------------------
 ### Decompiling The Java
 **_TODO: Brief outline of installing and working with a decompiler._**
+
+To truly understand Zomboid's Java API, you need to peak 'under the hood'. For those unfamiliar with Java, the code is written in .java files (standard text like .lua) then 'compiled' into .class files. Compiling is the process for turning human readable code (text) into machine readable instructions. To read Zomboid's Java we need to 'decompile' it: turn the machine readable instructions back into human readable code.
+
+Its worth mentioning that decompiling is not exact. The output code is going to  be slightly different then the code as it was originally written. That's because usually in a language there are multiple ways of writing the same thing, some are more optimized then others. Part of the compilers job is to optimize the code as it converts it to machine instruction. When you decompile you're working with this modified version of the original.
+
+There are multiple Java decompilers but the most commonly used and easiest to work with is [JD-GUI]()
+
+#### Installing
+
+#### Where to start
 
 ----------------------------------------
 ### Overwriting Vanilla Code
@@ -495,7 +516,43 @@ end)
 
 ----------------------------------------
 ### Code Quality Tips
-**_TODO: Outline consistent syntax, indentation levels, mixing tabs/spaces and documenting._**
+No matter how humble your code is, eventually someone is going to read it. It takes very little extra effort to write clean, readable code. Doing so will help not only other people reading and learning from your work, but also make your work more maintainable in the long run.
+
+**Document your code**
+
+Having documentation or comments in the code explaining is use or intended purpose is a massive help for people trying to understand it. Not only is it a help for other people, but helps you as well if the project is large or you spend a significant time away from it.
+
+The amount of documentation is dependant on the complexity of the code (simple bits are often self-explanatory), but don't assume that just because a function's purpose is obvious to you, its going to be obvious to others as well. For large projects you can even use programs such as [LDoc](https://github.com/stevedonovan/LDoc) or [LuaDoc](https://keplerproject.github.io/luadoc) can auto-generate HTML documentation from comments in the code although this requires using a specific syntax for your comments. (ORGM uses LDoc to generate its HTML docs)
+
+**Be consistent in style**
+
+Lua allows for many different styles of writing: using `;` line endings or not, `( )` around conditionals or not, etc. Its up to decide which style you prefer to work in, but pick one and stick with it.  Don't mix `;` line endings and no endings styles.
+
+**Be consistent in names.**
+
+Use a consistent naming scheme, such as tables capitalized `MyTable`, functions mixed (or camelCased) `myFunction`, and scalar variables lower cased `my_variable`. Again its up to you, but be consistent. It makes it easier to see the intent and use of a variable at a quick glance will show if its a table, function or something else. Some developers go the extra mile with variables and add a prefix to the name to identify scope and data types: `s_variable` for strings, `i_variable` for integers, `g_variable` for globals, etc.
+
+**Be consistent in indentation.**
+
+Use proper indentation levels, for both lua and the scripts .txt files. Stuff like the example below is extremely difficult to read, and FAR too common.
+```
+module Base {
+    item MyItem {
+        Type = Normal,
+            DisplayName = "My Item",
+    }
+        item MyItem2 {
+                    Type = Normal,
+                    DisplayName = "My Item",
+    }
+}
+```
+**Know your editor.**
+
+What happens when you hit the `tab` key? Does it insert a tab character? or spaces? Some developers prefer spaces over tabs, the choice is yours. Just don't mix them. Again, **be consistent**. The indentation on a mixed tab/spaces file may look fine on your screen, but with a different editor or fonts it wont.
+
+Most editors will have a option for using tabs or multiple spaces (often 4) when the tab key is pressed. They also have a option for viewing 'whitespaces' in the file, visibly showing where all the tabs and spaces are. When copy/pasting code blocks and snippets from other sources (like the vanilla files), be aware it might not match your tab/spaces preference. *Cleanup any copied code.*  
+Fortunately most editors also have a handy tool for auto-converting all tabs to spaces and vice versa.
 
 ----------------------------------------
 ### Code Snippets
