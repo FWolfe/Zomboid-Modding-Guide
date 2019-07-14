@@ -512,7 +512,162 @@ end)
 
 ----------------------------------------
 ### Performance Tips
-**_TODO: Outline common performance mistakes, variable scoping and troublesome event callbacks._**
+There is usually many ways to produce the same outcome when code is involved, some ways are more efficient then others. Don't assume just because your mod is 'small' or 'doesn't do much' that you can forget about optimizing. It only takes one poorly written line of code to bring a system to a crawl. And its most likely people will run your mod with many other mods, which may or may not be optimized. It all adds up.
+
+This doesn't mean you should overly worry about optimization for each part of the code. Trying to tweak each line or code block is a massive waste of time and effort. The trick is knowing where to optimize. A good guideline is **_the more often a block of code runs, the more you need to optimize it._**
+
+Code that only runs once is not so much of a concern as code that is getting triggered by a `OnPlayerUpdate` event.
+
+Even without specific performance optimization some practices should be implemented throughout your mod to help it be less of a drag on the user's machine.
+
+#### Global vs Local
+Global variables and functions can be accessed from any file, anywhere in the code. Local variables can only be accessed from the file or block of code they were declared in. While being able to access from anywhere is a handy feature, it's often more problematic. Accessing a global is slower, they run the risk of being accidentally overwritten. One of Lua's core philosophies is to declare variables and functions in the smallest scope possible (local).
+
+**Prefer local variables and functions**
+
+One way to think of the differences between global and local is like a phone book. Global is a entire city and local is your personal phone book, only the numbers you actually plan on calling. Its much faster to find or change things in the smaller personal book then the larger directory. By being local, you also don't have to worry about anyone else adding or changing the same name and overwriting the data.
+
+The downside is these locals can't be accessed from outside the code block or file they were created in.
+
+Lua was designed to have minimal items in the global namespace for performance reasons. Project Zomboid's global namespace is heavily polluted (ie: has too many items). The more items that are in the global space, the longer it takes to access any specific one. Performance differences in Zomboid's kahlua interpreter vs standard Lua likely exist on the global vs local aspect, however benchmarks have shown much faster access to locals.
+
+**Remember the local keyword**
+
+Don't forget that functions and variables are global unless declared with the `local` keyword.
+```lua
+function Fun() -- global function
+    x = 5 -- global variable
+    return x
+end
+Fun2 = function() -- global function
+    local x = 5 -- local variable
+    return x
+end
+
+local function Fun() -- local function
+    x = 5 -- global variable
+    return x
+end
+local Fun2 = function() -- local function
+    local x = 5 -- local variable
+    return x
+end
+```
+
+**Variables declared inside functions should always be local**
+
+If your function declares a variable, make it local. If you need the variable after the function runs and simply returning it is not a option, declare it local earlier in the file outside the function block.
+
+```lua
+local x
+local function Fun()
+    x = 5
+    return "something else"
+end
+```
+
+**If you need to add to the global space, only add one table**
+
+Often local won't do. You need to access multiple functions and variables from other files. There is a simple effective compromise: *store all your functions and variables into a single global table*
+
+Tables are designed to organize your data and functions. Use them. Storing everything you need in a single table will save from polluting the global namespace more (thus slowing down everything) and still give you complete access. Consider the following table structure:
+
+```lua
+MyMod = {
+    Settings = { }, -- configuration options
+    Client = { -- client side functions and data
+        Events = { }, -- client event hooks
+    },
+    Server = { -- server side functions and data
+        Events = { }, -- server event hooks
+    },
+}
+```
+
+If you load this table first before the rest of the mod in the shared folder, you can just add everything inside it. You'll probably want to pull the subtables into local. It gives faster access and cleaner code, especially if you need to access the subtables a lot.
+
+```lua
+-- loaded from the client folder
+local Client = MyMod.Client
+function Client.clientFun() return true end
+```
+
+**Pull global tables and functions into local**
+
+Part of Lua's *smallest scope* philosophy applies not only to declaring variables and functions, but accessing them as well. You gain performance by pulling global into the local space as it now has a shortcut then trying to find it in the global namespace every time.
+```lua
+-- table we declared global in another file
+local MyMod = MyMod
+```
+This applies to everything, including Zomboid's Lua functions and tables, functions and classes in the Java API, and built-in Lua functions and modules.
+
+```lua
+local table = table -- Lua's table module
+local ipairs = ipairs -- built in Lua function
+local ZombRand = ZombRand -- java function
+```
+
+Consider the following:
+```lua
+local MyTable = { }
+function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 12}
+    for _, num in ipairs(table_list)
+        print(ZombRand(num))
+    end
+end
+```
+Everytime the function runs, it needs to lookup `ipairs`, and for every number in the table is has to lookup `print` and `ZombRand`. If the table is large, we can gain a performance boost by doing this:
+```lua
+local MyTable = { }
+function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 12}
+    -- pull into local
+    local print = print
+    local ZombRand = ZombRand
+    -- no need to pull ipairs here
+    -- its only called once and we're stuck looking it up anyways
+    for _, num in ipairs(table_list)
+        print(ZombRand(num))
+    end
+end
+```
+
+But this doesn't particularly help and might actually reduce performance with very small tables. Its also still having to do lookups when the function is run. A better option would be:
+```lua
+local MyTable = { }
+local print = print
+local ZombRand = ZombRand
+local ipairs = ipairs
+function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 12}
+    for _, num in ipairs(table_list)
+        print(ZombRand(num))
+    end
+end
+```
+Now when our function runs it doesn't need to look anything up in the global space at all.
+
+If you really want to control local namespace pollution as well only declaring things local in parts of the file that actually need them, use the `do .. end` block
+
+```lua
+local MyTable = { }
+local ipairs = ipairs
+do -- add a block to limit access
+    local ZombRand = ZombRand
+    local print = print
+
+    -- since the function is going in MyTable, its access doesn't change
+    function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 12}
+        for _, num in ipairs(table_list)
+            print(ZombRand(num))
+        end
+    end
+end
+-- functions and code after the do block have access to the local ipairs
+-- but not ZombRand or print
+```
+
+#### Event Callbacks
+
+#### Misc Performace Tips
 
 ----------------------------------------
 ### Code Quality Tips
