@@ -26,6 +26,9 @@
   * [Overwriting Vanilla Code](#overwriting-vanilla-code)  
   * [Overwriting Another Mod's Code](#overwriting-another-mods-code-3rd-party-patching)  
   * [Performance Tips](#performance-tips)  
+    * [Global vs Local]()
+    * [Event Callbacks]()
+    * [Misc Performance Tips]()
   * [Code Quality Tips](#code-quality-tips)  
   * [Code Snippets](#code-snippets)  
 * [Translations](#translations)  
@@ -520,6 +523,8 @@ Code that only runs once is not so much of a concern as code that is getting tri
 
 Even without specific performance optimization some practices should be implemented throughout your mod to help it be less of a drag on the user's machine.
 
+----------------------------------------------------------------------------------
+
 #### Global vs Local
 Global variables and functions can be accessed from any file, anywhere in the code. Local variables can only be accessed from the file or block of code they were declared in. While being able to access from anywhere is a handy feature, it's often more problematic. Accessing a global is slower, they run the risk of being accidentally overwritten. One of Lua's core philosophies is to declare variables and functions in the smallest scope possible (local).
 
@@ -631,7 +636,7 @@ function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 1
 end
 ```
 
-But this doesn't particularly help and might actually reduce performance with very small tables. Its also still having to do lookups when the function is run. A better option would be:
+Now it only needs to lookup `print` and `ZombRand` once when the function is called instead of every step of the loop. But this doesn't particularly help and might actually reduce performance with very small tables. Its also still having to do lookups when the function is run. A better option would be:
 ```lua
 local MyTable = { }
 local print = print
@@ -643,9 +648,10 @@ function MyTable.Fun(table_list) -- table_list is a list of numbers: ie {4, 1, 1
     end
 end
 ```
+
 Now when our function runs it doesn't need to look anything up in the global space at all.
 
-If you really want to control local namespace pollution as well only declaring things local in parts of the file that actually need them, use the `do .. end` block
+If you really want to control local namespace pollution as well and want declare things local only in parts of the file that actually need them, use the `do .. end` block
 
 ```lua
 local MyTable = { }
@@ -665,9 +671,92 @@ end
 -- but not ZombRand or print
 ```
 
+----------------------------------------------------------------------------------
+
 #### Event Callbacks
 
+----------------------------------------------------------------------------------
+
 #### Misc Performace Tips
+
+**Pay attention to conditional order**
+
+A big part of optimizing is running as few code instructions as possible. Consider the following conditional statement which includes 2 comparison instructions:
+```lua
+if x and y then
+    -- do something
+end
+```
+
+This first checks if `x` is true (not false or nil), then checks `y`. If both `x` and `y` have 50/50% chances of both being true or false, then order doesn't matter. However if odds are different then we can tweak this for performance. Lets assume the following for this example:
+```
+x has a 70% chance of being true, 30% false
+y has a 20% chance of being true, 80% false
+```
+
+Now we want a `and` conditional checking that both of these are true. With `x` first, there is a 70% (true) chance we end up calling both conditional instructions `x and y`
+```lua
+if x and y then -- bad option, 70% chance of triggering both checks
+    -- do something
+end
+```
+
+If we reverse the order and check `y` first, there is only a 20% (true) chance it will continue on to check `x`. The second part of the conditional is never executed if the first is invalid.
+```lua
+if y and x then -- better option, only 20% we check both
+    -- do something
+end
+```
+
+When using `and` put the most likely false first. When using `or` this is reversed, and you need to put the most likely true first
+```lua
+if x or y then -- if x is true (70% chance) then it never checks y
+    -- do something
+end
+```
+
+**Break from loop structures early**
+
+Remember you can use `break` to exit loops once you achieve your goals.
+```lua
+local MyTable = {'a', 'b', 'c'}
+local index = nil
+for i, value in ipairs(MyTable) do
+    if value == 'b' then
+        index = i
+        break -- no need to continue our loop
+    end
+end
+```
+
+Often you don't want to break from a loop, but skip over to the next part. Sadly Lua offers no such feature. We can however fake it using a `repeat ... until true` loop inside our main loop
+```lua
+local MyTable = {'a', 'b', 'c'}
+local index = nil
+for i, value in ipairs(MyTable) do
+    repeat
+        if value ~= 'b' then break end -- if its not b, we break out of the inner repeat loop
+        index = i
+    until true
+end
+```
+
+Here we use `break` to exit the `repeat ... until` loop and continue onto the next step of the `ipairs` loop. And since `true` is always true, our `repeat ... until true` loop exits on the first pass instead of actually looping.
+
+**Avoid calling object methods repetitively**
+
+Far too often you see bits of code like this:
+```lua
+if getPlayer():getInventory():contains("MyMod.MyItem") and getPlayer():getInventory():contains("MyMod.MyItem") then
+```
+
+If your going to use the return value of a function multiple times, cache the results in a local variable.
+```lua
+local inventory = getPlayer():getInventory()
+if inventory:contains("MyMod.MyItem") and inventory:contains("MyMod.MyItem") then
+```
+
+Its cleaner and saves jumping back and forth from the Java to Lua. Our first example calls the Java component 6 times. The `getPlayer` function, and the `getInventory` and `contains` methods all get called from lua twice (6 total). The second example only calls Java 4 times, a 33% difference and this is only with 2 checks. If we wanted to check for a 3rd item, our example differences would be 9 calls vs 5, four inventory item checks bring the difference to 12 and 6 (50% less calls to Java).
 
 ----------------------------------------
 ### Code Quality Tips
