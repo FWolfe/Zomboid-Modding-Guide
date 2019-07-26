@@ -27,7 +27,7 @@
   * [Overwriting Another Mod's Code](#overwriting-another-mods-code-3rd-party-patching)  
   * [Performance Tips](#performance-tips)  
     * [Global vs Local]()
-    * [Event Callbacks]()
+    * [Troublesome Event Callbacks]()
     * [Misc Performance Tips]()
   * [Code Quality Tips](#code-quality-tips)  
   * [Code Snippets](#code-snippets)  
@@ -391,7 +391,6 @@ The upside of this is Java Lists and Arrays have shortcut methods not available 
 
 ----------------------------------------
 ### The Vanilla Lua
-**_TODO: Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
 The Lua controls many aspects of the game. A small sample of whats in the Lua, and thus directly moddable:
 
@@ -403,7 +402,7 @@ The Lua controls many aspects of the game. A small sample of whats in the Lua, a
 * farming
 * vehicle usage and events that happen over time while driving
 
-This section of the guide covers where these aspects can be found. Zomboid's Lua files are broken up into 3 main folders:
+This section of the guide covers where different aspects can be found in the files. Zomboid's Lua files are broken up into 3 main folders:
 
 * `media/lua/shared`
 Used for lua scripts shared by client and server-side logic. These are the first Lua scripts that get loaded.
@@ -421,7 +420,7 @@ Many aspects such as farming or vehicles have both a `client` and `server` compo
 `client/LastStand/`
 
 #### User Interface
-**Note:** many interface elements such as the mechanics window are listed in their corresponding sections instead of here. This section contains standalone UI elements.
+_**Note:**_ *many interface elements such as the mechanics window are listed in their corresponding sections instead of here. This section contains standalone UI elements.*
 
 `client/OptionScreens/` contains the pre-game interface. Main menu, options and mod selection, plus the game setup and character creation screens.
 
@@ -430,6 +429,23 @@ Many aspects such as farming or vehicles have both a `client` and `server` compo
 `client/SurvivorGuide/` tutorial/help window (F1 key)
 
 `client/ISUI/` contains base UI classes such as buttons or richtext boxes, as well as many specific windows and elements like tooltips and inventories.
+
+#### TimedActions
+`client/TimedActions/` contains the majority of timed actions, although many such as farming or reloading are not part of this folder, and listed in their corresponding sections.
+
+#### Building
+`client/BuildingObjects/ISUI/`
+
+`client/BuildingObjects/TimedActions/`
+
+`server/BuildingObjects/`
+
+#### Farming
+`client/Farming/ISUI/`
+
+`client/Farming/TimedActions/`
+
+`server/Farming/`
 
 #### Firearm Logic
 `shared/Reloading/` Contains reloading, racking and firing logic. Expect major differences between PZ build 40 and 41 here.
@@ -459,6 +475,79 @@ Many aspects such as farming or vehicles have both a `client` and `server` compo
 ----------------------------------------
 ### Zomboid's API
 **_TODO: Describe major parts of the api, common globals and the event system._**
+
+The API (application programming interface) for Project Zomboid consists of 2 parts: the Lua global functions and tables, and the Java exposed functions and [classes](./JavaClasses.md).  
+
+Given that Project Zomboid is far from complete, its API is constantly evolving. Official documentation is outdated and sparse. The most effective way to find what's available to you is by reading the code. For Lua this is simple enough but for Java it means [decompiling](#decompiling-the-java).
+
+#### The Event System
+The majority of Zomboid's Lua code is triggered by a Event/Callback system. Lua functions are registered as callbacks in response to events triggered by Java. The exception is code run when the Lua files are loaded (code outside functions), and Lua functions specifically called by Java (applies only to some vanilla functions).  
+
+There is a wide variety of events that you can register a callback to including stuff like key presses, equipping a item, loot spawning, starting a game etc.
+
+Registering callbacks to a event is easy:
+```lua
+local function someFun(player)
+    -- do something
+end
+Events.OnPlayerUpdate.Add(someFun)
+```
+
+Removing callbacks is equally as easy, but you can only remove a event if you have a pointer to the callback function:
+```lua
+Events.OnPlayerUpdate.Remove(someFun)
+```
+
+A common mistake with beginners adding events is accidentally doing this:
+```lua
+Events.OnPlayerUpdate.Add(someFun()) -- don't include () after your function or you'll call it instead of passing it
+```
+
+Events are not always triggered by Java, in some instances they are triggered by Lua. A example is the ItemPicker in build 40 and below: Java directly calls the Lua ItemPicker functions, which then triggers the `OnFillContainer` event.
+```lua
+-- trigger a event from Lua
+triggerEvent(event_type, arg1, arg2, arg3)
+```
+
+New event types can also be added by Lua:
+```lua
+LuaEventManager.AddEvent("SomeEvent") -- add our new event type
+Events.SomeEvent.Add(someFun) -- add our callback to our new event
+-- now we can use triggerEvent("SomeEvent", args)
+```
+
+When creating callbacks to events, there are a few things that need to be taken into consideration:
+
+* Some events are triggered more often then others, and callbacks may need to be optimized for performance.
+* Some events are only triggered client-side or server-side, thus callbacks need to be as well.
+
+Different events will pass different argument types to your callbacks. When using a new event its worth debugging it first, checking if its only client or server-side, how often its called, and exactly what types of arguments it has. Using the function in the following example we can easily see what arguments a event callback is getting.
+
+```lua
+local function printEvent(event, ...)
+    print("--------------------------------------")
+    local d = {select(1,...)} -- convert the ... argument to a table
+    for i, v in ipairs(d) do d[i] = tostring(v) end -- convert each to a string representation
+    print("-- "..event .. "("..table.concat(d, ", ")..")")
+    print("--")
+    print("--")
+end
+-- add to some events, note the use of the wrapper function around printEvent
+Events.OnNewGame.Add(function(...) printEvent("OnNewGame", ...) end)
+Events.OnEquipPrimary.Add(function(...) printEvent("OnEquipPrimary", ...) end)
+Events.OnEquipSecondary.Add(function(...) printEvent("OnEquipSecondary", ...) end)
+```
+
+Which will print something similar to this in the console:
+```
+1521394450391 --------------------------------------
+1521394450391 -- OnNewGame(zombie.characters.IsoPlayer@1c5b2c8, zombie.iso.IsoGridSquare@10b1392)
+1521394450391 --
+1521394450391 --
+```
+
+#### The Hook System
+
 
 ----------------------------------------
 ### Decompiling The Java
@@ -736,7 +825,7 @@ end
 
 ----------------------------------------------------------------------------------
 
-#### Event Callbacks
+#### Troublesome Event Callbacks
 
 ----------------------------------------------------------------------------------
 
