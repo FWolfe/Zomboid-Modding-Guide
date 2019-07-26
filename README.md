@@ -393,6 +393,69 @@ The upside of this is Java Lists and Arrays have shortcut methods not available 
 ### The Vanilla Lua
 **_TODO: Brief outline of what aspects of the game are controlled by lua, and where these aspects can be found in the files._**
 
+The Lua controls many aspects of the game. A small sample of whats in the Lua, and thus directly moddable:
+
+* User interface elements
+* inventory management and item equipping
+* timed actions and general interaction with the world
+* item spawning
+* building
+* farming
+* vehicle usage and events that happen over time while driving
+
+This section of the guide covers where these aspects can be found. Zomboid's Lua files are broken up into 3 main folders:
+
+* `media/lua/shared`
+Used for lua scripts shared by client and server-side logic. These are the first Lua scripts that get loaded.
+* `media/lua/client`
+Used for client-side scripts. UI elements, context menus timed actions and the like. These get loaded after any 'shared' Lua scripts.
+* `media/lua/server`
+Used for server-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
+
+Many aspects such as farming or vehicles have both a `client` and `server` component.
+
+#### Professions and Traits
+`shared/NPCs/` defines all professions and traits, also hair color pallets and survivor random names and other character creation options.
+
+#### Custom Challanges
+`client/LastStand/`
+
+#### User Interface
+**Note:** many interface elements such as the mechanics window are listed in their corresponding sections instead of here. This section contains standalone UI elements.
+
+`client/OptionScreens/` contains the pre-game interface. Main menu, options and mod selection, plus the game setup and character creation screens.
+
+`client/XpSystem/ISUI/` character skills window, health and info panels.
+
+`client/SurvivorGuide/` tutorial/help window (F1 key)
+
+`client/ISUI/` contains base UI classes such as buttons or richtext boxes, as well as many specific windows and elements like tooltips and inventories.
+
+#### Firearm Logic
+`shared/Reloading/` Contains reloading, racking and firing logic. Expect major differences between PZ build 40 and 41 here.
+
+#### Hidden Stashes
+`shared/StashDescriptions/`
+
+#### Settings
+`shared/defines.lua` the ZomboidGlobals modifiers
+
+`shared/Sandbox/` predefined sandbox presets
+
+#### Vehicles
+`shared/VehicleZoneDefinition.lua` defines where specific vehicle types can be found and spawn chances.
+
+`client/Vehicles/ISUI/` user interface elements such as the dashbar, radial and mechanics window.
+
+`client/Vehicles/TimedActions/` various timed actions such as opening windows, adding gas, hotwiring etc.
+
+`server/Vehicles/VehiclesCommands.lua` contains server callbacks in response to client actions sent with sendClientCommand().
+
+`server/Vehicles/VehiclesDistributions.lua` item distributions inside vehicle containers are defined here.
+
+`server/Vehicles/Vehicles.lua` contains callback functions in response to various vehicle events such as creation or update, mechanics callbacks on part installation or removal, and utility functions. Part condition on vehicle spawn, loss of condition while driving, fuel consumption and battery usage are a example of what can be modified here.
+
+
 ----------------------------------------
 ### Zomboid's API
 **_TODO: Describe major parts of the api, common globals and the event system._**
@@ -715,7 +778,7 @@ if x or y then -- if x is true (70% chance) then it never checks y
 end
 ```
 
-**Break from loop structures early**
+**Break from functions and loop structures as early as possible**
 
 Remember you can use `break` to exit loops once you achieve your goals.
 ```lua
