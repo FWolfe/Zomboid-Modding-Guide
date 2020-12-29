@@ -41,7 +41,7 @@ The internet is scattered with tutorials.
 For build 40 and below, 3d art for Project Zomboid primarily consists of weapon models and vehicles. At this time all 3d mods fall into one of these 2 types.  Models are in a custom .txt format.
 The processes of exporting from your modelling app and importing in PZ is fairly simple, though initial positioning, scaling and rotation can take a bit of tweaking. Minor coding is required to tell Zomboid to load the custom models.
 
-Build 41 is expected to bring additional 3d models such as clothing and static items used in timed actions, and a different model format.
+Build 41 uses the [.X](https://en.wikipedia.org/wiki/.x) and [.fbx](https://en.wikipedia.org/wiki/FBX) formats.
 
 #### Textures
 
@@ -58,7 +58,7 @@ For the most part, you are free to use what ever tools you want. The exception i
 Used in all areas of modding. [Notepad++](https://notepad-plus-plus.org) is often the preferred editor for windows OS's (it also runs amazingly well on linux with wine)
 
 #### 3d Modelling:
-Used for the creation of custom items, vehicles and weapons. [Blender](https://blender.org) is the common choice as its free, and import/export scripts for PZ's model format exist. Any 3d app can be used to make your models, with blender doing the final conversion.
+Used for the creation of custom items, vehicles and weapons. [Blender](https://blender.org) is the common choice as its free and import/export scripts for PZ's older (build 40) model format exist. 
 
 #### Image Editor:
 If your doing custom icons, textures, maps or 3d models you'll need one of these. Paint.NET, Photoshop and [GIMP](https://gimp.org) are the most used, but whatever supports the .png format will work.
