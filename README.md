@@ -57,6 +57,9 @@ For the most part, you are free to use what ever tools you want. The exception i
 #### Text Editors:
 Used in all areas of modding. [Notepad++](https://notepad-plus-plus.org) is often the preferred editor for windows OS's (it also runs amazingly well on linux with wine)
 
+#### Code and Key-term search
+There are 17,000 files in the Project Zomboid file directory. It could take a regular user headaches and hours of aimless searching to find that desired file or line of code. [grepWin](https://github.com/stefankueng/grepWin/releases/tag/2.0.3) is a powerful and fast search tool that can locate your desired file within seconds. 
+
 #### 3d Modelling:
 Used for the creation of custom items, vehicles and weapons. [Blender](https://blender.org) is the common choice as its free and import/export scripts for PZ's older (build 40) model format exist. 
 
