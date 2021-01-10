@@ -6,11 +6,11 @@
 ### Creating clothing item
 
 1. The first part is to select your model (This is assuming that your model works in game) - You will test this by accomplishing these next steps
-2. The next part is to make an addition to the script.txt file and import it into base. 
+2. The next part is to make an addition to the `script.txt` file and import it into base. 
 
 For example, in the mod directory 
-'<\AuthenticZ\Contents\mods\Authentic Z + Custom Zombies\media\scripts\clothing>'
-in the script of PZAZ_clothing_jacket.txt : 
+`<\AuthenticZ\Contents\mods\Authentic Z + Custom Zombies\media\scripts\clothing>`
+in the script of `PZAZ_clothing_jacket.txt`: 
 
 ```
 module AuthenticZClothing {
@@ -39,10 +39,10 @@ module AuthenticZClothing {
 }    
 ```
 
-2. Connect the script with a new .xml clothing item (you refer its name id in its script file)
+2. Connect the script with a new `.xml` clothing item (you refer its name id in its script file)
 
+`<\Authentic Z + Custom Zombies\media\clothing\clothingItems>` -> `Jacket_Grimes.xml`: 
 
-'<\Authentic Z + Custom Zombies\media\clothing\clothingItems>' -> Jacket_Grimes.xml : 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <clothingItem>
@@ -61,8 +61,8 @@ module AuthenticZClothing {
 </clothingItem>
 ```
 3. Get a unique GUID. (Globally Unique Identifier)
-Go to [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx) , and copy and paste in a new GUID into its respected section. All clothingitems, models, and makeup get
-their own GUID. You will use this ID code in every .XML file that you want to use this clothingitem in. 
+Go to [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx), and copy and paste in a new GUID into its respected section. All clothingitems, models, and makeup get
+their own GUID. You will use this ID code in every `.xml` file that you want to use this clothingitem in. 
 
 4. Then you also add an addition to the GUID table. 
 ```(Authentic Z + Custom Zombies\media -> fileGuidTable.xml)
@@ -81,7 +81,7 @@ their own GUID. You will use this ID code in every .XML file that you want to us
 2. The clothing item will appear with a red and white checkerboard format - that comes from not referencing the texture file correctly.
 
 3. The item will appear in inventory but appears invisible on character - this is probably because it did not get a new GUID table addition. 
-And then of course, you got to give that clothing item an inventory icon, which you reference in the /media/textures file with item_YourFile.png.
+And then of course, you got to give that clothing item an inventory icon, which you reference in the `/media/textures` file with `item_YourFile.png`.
 
 
 [//]: # "Extra"
@@ -89,7 +89,7 @@ And then of course, you got to give that clothing item an inventory icon, which 
 
 Since you have gotten this far, the bulk of the tedious work is done. 
 
-1. Go to clothing.xml , located in media\clothing and take a look at the format of the outfits. 
+1. Go to `clothing.xml`, located in media\clothing and take a look at the format of the outfits. 
 These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
 ```xml
 <m_MaleOutfits>
@@ -136,11 +136,11 @@ These are outfits that the game designates onto zombies. Making a new one correc
 		</m_items>
 	</m_MaleOutfits>
 ```
-2. Do note that this would create a "Male only" zombie outfit. Replacing the top and bottom cases in a new outfit with a "<m_FemaleOutfits>" & "</m_FemaleOutfits>" will make 
+2. Do note that this would create a "Male only" zombie outfit. Replacing the top and bottom cases in a new outfit with a `<m_FemaleOutfits>` & `</m_FemaleOutfits>` will make 
 a female variation. Reuse that GUID from the make for the female to have the game recognize both sex of outfits - this pairs them. (It won't be exclusive to a sex)
 
-3. If you set to spawn a zombie in "ZombieZoneDefinitions.lua" and it is a sex exclusive outfit (Male or Female only),
-You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its clothing.xml list.
+3. If you set to spawn a zombie in `ZombieZoneDefinitions.lua` and it is a sex exclusive outfit (Male or Female only),
+You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its `clothing.xml` list.
 For Example :
 ```lua
 ZombiesZoneDefinition.Police = {
@@ -151,11 +151,11 @@ ZombiesZoneDefinition.Police = {
 	},
   }
 ```
-4. There are two other files that you can use to customize your zombie outfits - HairOutfitDefinitions.lua & AttachedWeaponDefinitions.lua
+4. There are two other files that you can use to customize your zombie outfits - `HairOutfitDefinitions.lua` & `AttachedWeaponDefinitions.lua`
 Which you place later in this folder of the mod : 
-\Authentic Z + Custom Zombies\media\lua\shared\Definitions
+`\Authentic Z + Custom Zombies\media\lua\shared\Definitions`
 
-In HairOutfitDefinitions.lua, you can designate one specific haircut or a range of haircuts for that zombie outfit. 
-In AttachedWeaponDefinitions.lua, you can choose what items will spawn attached to the zombie for that outfit.  
+In `HairOutfitDefinitions.lua`, you can designate one specific haircut or a range of haircuts for that zombie outfit. 
+In `AttachedWeaponDefinitions.lua`, you can choose what items will spawn attached to the zombie for that outfit.  
 
 
