@@ -12,7 +12,7 @@ For example, in the mod directory
 '<\AuthenticZ\Contents\mods\Authentic Z + Custom Zombies\media\scripts\clothing>'
 in the script of PZAZ_clothing_jacket.txt : 
 
-```txt
+```
 module AuthenticZClothing {
   imports {
       Base
