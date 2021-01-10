@@ -12,7 +12,7 @@ For example, in the mod directory
 '<\AuthenticZ\Contents\mods\Authentic Z + Custom Zombies\media\scripts\clothing>'
 in the script of PZAZ_clothing_jacket.txt : 
 
-```
+```txt
 module AuthenticZClothing {
   imports {
       Base
@@ -91,7 +91,7 @@ Since you have gotten this far, the bulk of the tedious work is done.
 
 1. Go to clothing.xml , located in media\clothing and take a look at the format of the outfits. 
 These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
-```
+```xml
 <m_MaleOutfits>
 		<m_Name>AuthenticRickGrimes</m_Name>                                <!-- The Name of the zombie outfit, it will appear like this in the debug list of Zombie manager -->
 		<m_Guid>1fc501ec-3d70-4a9d-828a-77a23dbcffd9</m_Guid>               <!-- The outfit needs a new GUID. Get a new GUID here: [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx) -->
@@ -142,7 +142,7 @@ a female variation. Reuse that GUID from the make for the female to have the gam
 3. If you set to spawn a zombie in "ZombieZoneDefinitions.lua" and it is a sex exclusive outfit (Male or Female only),
 You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its clothing.xml list.
 For Example :
-```
+```lua
 ZombiesZoneDefinition.Police = {
 	AuthenticRickGrimes = {        /** Term for the ZombieZoneDefinitions.lua file **/
 		name="AuthenticRickGrimes",  /** Name of the Outfit in Clothing.xml **/
