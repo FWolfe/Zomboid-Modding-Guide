@@ -8,8 +8,7 @@
 1. The first part is to select your model (this is assuming that your model works in game) - you will test this by accomplishing these next steps.
 2. The next part is to make an addition to the `script.txt` file and import it into base. 
 
-For example, in the mod directory 
-in the script of `PZAZ_clothing_jacket.txt`: 
+Here is a script example located in:
 `\mods\AuthenticZClothing\media\scripts\clothing\PZAZ_clothing_jacket.txt`
 
 ```
@@ -87,7 +86,7 @@ Of course you got to add distributions to it if you want it to appear in the wor
 
 Since you have gotten this far, the bulk of the tedious work is done. 
 
-1. Go to `clothing.xml`, located in media\clothing and take a look at the format of the outfits. These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
+1. Go to `clothing.xml`, located in `media\clothing` and take a look at the format of the outfits. These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
 ```xml
 <m_MaleOutfits>
 		<m_Name>AuthenticRickGrimes</m_Name>                                <!-- The Name of the zombie outfit, it will appear like this in the debug list of Zombie manager -->
@@ -133,11 +132,10 @@ Since you have gotten this far, the bulk of the tedious work is done.
 		</m_items>
 	</m_MaleOutfits>
 ```
-2. Do note that this would create a "Male only" zombie outfit. Replacing the top and bottom cases in a new outfit with a `<m_FemaleOutfits>` and `</m_FemaleOutfits>` will make a female variation. Reuse that GUID from the make for the female to have the game recognize both sex of outfits - this pairs them. (It won't be exclusive to a sex)
+2. Do note that this would create a *"Male only"* zombie outfit. Replacing the top and bottom cases in a new outfit with a `<m_FemaleOutfits>` and `</m_FemaleOutfits>` will make a female variation. Reuse that GUID from the make for the female to have the game recognize both sex of outfits - this pairs them. (It won't be exclusive to a sex)
 
 3. If you set to spawn a zombie in `ZombieZoneDefinitions.lua` and it is a sex exclusive outfit (Male or Female only),
 You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its `clothing.xml` list.
-For example :
 ```lua
 ZombiesZoneDefinition.Police = {
 	AuthenticRickGrimes = {        -- Term for the ZombieZoneDefinitions.lua file 
