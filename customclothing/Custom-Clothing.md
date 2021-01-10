@@ -94,7 +94,7 @@ These are outfits that the game designates onto zombies. Making a new one correc
 ```xml
 <m_MaleOutfits>
 		<m_Name>AuthenticRickGrimes</m_Name>                                <!-- The Name of the zombie outfit, it will appear like this in the debug list of Zombie manager -->
-		<m_Guid>1fc501ec-3d70-4a9d-828a-77a23dbcffd9</m_Guid>               <!-- The outfit needs a new GUID. Get a new GUID here: [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx) -->
+		<m_Guid>1fc501ec-3d70-4a9d-828a-77a23dbcffd9</m_Guid>               <!-- The outfit needs a new GUID. Get a new GUID. -->
 		<m_Top>false</m_Top>
 		<m_Pants>false</m_Pants>
 		<m_AllowPantsHue>false</m_AllowPantsHue>                            <!-- No pants hue change to the textures -->
