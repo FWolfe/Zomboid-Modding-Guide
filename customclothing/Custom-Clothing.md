@@ -147,10 +147,8 @@ ZombiesZoneDefinition.Police = {
 	},
   }
 ```
-
-In `HairOutfitDefinitions.lua`, you can designate one specific haircut or a range of haircuts for that zombie outfit. 
-In `AttachedWeaponDefinitions.lua`, you can choose what items will spawn attached to the zombie for that outfit.  
-
 4. There are two other files that you can use to customize your zombie outfits - `HairOutfitDefinitions.lua` and `AttachedWeaponDefinitions.lua` which you place later in the following mod directory: 
   `\AuthenticZClothing\media\lua\shared\Definitions`
 
+- In `HairOutfitDefinitions.lua`, you can designate one specific haircut or a range of haircuts for that zombie outfit.
+- In `AttachedWeaponDefinitions.lua`, you can choose what items will spawn attached to the zombie for that outfit.
