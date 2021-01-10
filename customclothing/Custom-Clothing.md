@@ -5,7 +5,7 @@
 
 ### Creating clothing item
 
-1. The first part is to select your model (This is assuming that your model works in game) - You will test this by accomplishing these next steps
+1. The first part is to select your model (this is assuming that your model works in game) - you will test this by accomplishing these next steps.
 2. The next part is to make an addition to the `script.txt` file and import it into base. 
 
 For example, in the mod directory 
@@ -60,11 +60,9 @@ module AuthenticZClothing {
 	<textureChoices>clothes\jacket\jacket_grimes</textureChoices>                        <!-- The texture that the model uses -->
 </clothingItem>
 ```
-3. Get a unique GUID. (Globally Unique Identifier)
-Go to [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx), and copy and paste in a new GUID into its respected section. All clothingitems, models, and makeup get
-their own GUID. You will use this ID code in every `.xml` file that you want to use this clothingitem in. 
+3. Get a unique GUID (Globally Unique Identifier) by going to [GUID Generator](https://www.guidgenerator.com/online-guid-generator.aspx), and copy/paste in a new GUID into its respected section. All clothing items, models, and makeup get their own GUID. You will use this ID code in every `.xml` file that you want to use this clothing item in.
 
-4. Then you also add an addition to the GUID table. 
+4. Then you also add an addition to the GUID table.
 ```(Authentic Z + Custom Zombies\media -> fileGuidTable.xml)
 	<!-- Authentic Z Custom Clothing -->     /** This is how you comment in a .XML file btw! **/
 	<files>
@@ -72,11 +70,11 @@ their own GUID. You will use this ID code in every `.xml` file that you want to 
 		<guid>6c247231-dbe5-45cd-8e93-78d4ef716ff9</guid>
 	</files>
 ```
----Your item should now be able to spawn in game, via debug. Of course you got to add distributions to it if you want it to appear in the world.
+Your item should now be able to spawn in game, via debug. Of course you got to add distributions to it if you want it to appear in the world.
 
 ### Possible Issues that you may run across
 
-1. The item will not appear, this is probably from you not referencing the clothingitem name correctly in the script. 
+1. The item will not appear, this is probably from you not referencing the clothing item name correctly in the script. 
 
 2. The clothing item will appear with a red and white checkerboard format - that comes from not referencing the texture file correctly.
 
@@ -141,7 +139,7 @@ a female variation. Reuse that GUID from the make for the female to have the gam
 
 3. If you set to spawn a zombie in `ZombieZoneDefinitions.lua` and it is a sex exclusive outfit (Male or Female only),
 You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its `clothing.xml` list.
-For Example :
+For example :
 ```lua
 ZombiesZoneDefinition.Police = {
 	AuthenticRickGrimes = {        -- Term for the ZombieZoneDefinitions.lua file 
