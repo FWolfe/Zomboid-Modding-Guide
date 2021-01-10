@@ -144,10 +144,10 @@ You got to state it as such or else the game will try to spawn the other sex, re
 For Example :
 ```lua
 ZombiesZoneDefinition.Police = {
-	AuthenticRickGrimes = {        /** Term for the ZombieZoneDefinitions.lua file **/
-		name="AuthenticRickGrimes",  /** Name of the Outfit in Clothing.xml **/
-		chance=3,                    /** Small chance of 3% to spawn in the zone (police station) **/
-		gender="male",               /**  This is a male only zombie, state it as such.   **/
+	AuthenticRickGrimes = {        -- Term for the ZombieZoneDefinitions.lua file 
+		name="AuthenticRickGrimes",  -- Name of the Outfit in Clothing.xml **/
+		chance=3,                    -- Small chance of 3% to spawn in the zone (police station) 
+		gender="male",               --  This is a male only zombie, state it as such.   
 	},
   }
 ```
