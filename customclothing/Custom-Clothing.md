@@ -1,9 +1,9 @@
-### Creating custom Clothing
+### Custom Clothing
 
-### Creating the 3d model
-[//]: # "NEED HELP ON THIS ONE" 
+### Creating 3D model
+[//]: # "NEED HELP ON THIS ONE"
 
-### Creating the clothing item
+### Creating clothing item
 
 1. The first part is to select your model (This is assuming that your model works in game) - You will test this by accomplishing these next steps
 2. The next part is to make an addition to the script.txt file and import it into base. 
@@ -74,7 +74,7 @@ their own GUID. You will use this ID code in every .XML file that you want to us
 ```
 ---Your item should now be able to spawn in game, via debug. Of course you got to add distributions to it if you want it to appear in the world.
 
-### Possible Issues that you may run across.
+### Possible Issues that you may run across
 
 1. The item will not appear, this is probably from you not referencing the clothingitem name correctly in the script. 
 
@@ -85,7 +85,7 @@ And then of course, you got to give that clothing item an inventory icon, which 
 
 
 [//]: # "Extra"
-### HOW TO MAKE CUSTOM CLOTHING APPEAR ON ZOMBIES
+### How to make custom clothing appear on zombies
 
 Since you have gotten this far, the bulk of the tedious work is done. 
 
