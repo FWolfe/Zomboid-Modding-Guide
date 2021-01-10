@@ -70,7 +70,8 @@ module AuthenticZClothing {
 		<guid>6c247231-dbe5-45cd-8e93-78d4ef716ff9</guid>
 	</files>
 ```
-Your item should now be able to spawn in game, via debug. Of course you got to add distributions to it if you want it to appear in the world.
+Your item should now be able to spawn in game, via debug. 
+Of course you got to add distributions to it if you want it to appear in the world.
 
 ### Possible Issues that you may run across
 
@@ -78,8 +79,7 @@ Your item should now be able to spawn in game, via debug. Of course you got to a
 
 2. The clothing item will appear with a red and white checkerboard format - that comes from not referencing the texture file correctly.
 
-3. The item will appear in inventory but appears invisible on character - this is probably because it did not get a new GUID table addition. 
-And then of course, you got to give that clothing item an inventory icon, which you reference in the `/media/textures` file with `item_YourFile.png`.
+3. The item will appear in inventory but appears invisible on character - this is probably because it did not get a new GUID table addition. And then of course, you got to give that clothing item an inventory icon, which you reference in the `/media/textures` file with `item_YourFile.png`.
 
 
 [//]: # "Extra"
@@ -87,8 +87,7 @@ And then of course, you got to give that clothing item an inventory icon, which 
 
 Since you have gotten this far, the bulk of the tedious work is done. 
 
-1. Go to `clothing.xml`, located in media\clothing and take a look at the format of the outfits. 
-These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
+1. Go to `clothing.xml`, located in media\clothing and take a look at the format of the outfits. These are outfits that the game designates onto zombies. Making a new one correctly will add it to the game's list of zombie outfits. 
 ```xml
 <m_MaleOutfits>
 		<m_Name>AuthenticRickGrimes</m_Name>                                <!-- The Name of the zombie outfit, it will appear like this in the debug list of Zombie manager -->
@@ -134,8 +133,7 @@ These are outfits that the game designates onto zombies. Making a new one correc
 		</m_items>
 	</m_MaleOutfits>
 ```
-2. Do note that this would create a "Male only" zombie outfit. Replacing the top and bottom cases in a new outfit with a `<m_FemaleOutfits>` & `</m_FemaleOutfits>` will make 
-a female variation. Reuse that GUID from the make for the female to have the game recognize both sex of outfits - this pairs them. (It won't be exclusive to a sex)
+2. Do note that this would create a "Male only" zombie outfit. Replacing the top and bottom cases in a new outfit with a `<m_FemaleOutfits>` and `</m_FemaleOutfits>` will make a female variation. Reuse that GUID from the make for the female to have the game recognize both sex of outfits - this pairs them. (It won't be exclusive to a sex)
 
 3. If you set to spawn a zombie in `ZombieZoneDefinitions.lua` and it is a sex exclusive outfit (Male or Female only),
 You got to state it as such or else the game will try to spawn the other sex, realize that it doesn't exist, then choose to spawn a random outfit from its `clothing.xml` list.
@@ -149,11 +147,10 @@ ZombiesZoneDefinition.Police = {
 	},
   }
 ```
-4. There are two other files that you can use to customize your zombie outfits - `HairOutfitDefinitions.lua` & `AttachedWeaponDefinitions.lua`
-Which you place later in this folder of the mod : 
 
 In `HairOutfitDefinitions.lua`, you can designate one specific haircut or a range of haircuts for that zombie outfit. 
 In `AttachedWeaponDefinitions.lua`, you can choose what items will spawn attached to the zombie for that outfit.  
 
+4. There are two other files that you can use to customize your zombie outfits - `HairOutfitDefinitions.lua` and `AttachedWeaponDefinitions.lua` which you place later in the following mod directory: 
   `\AuthenticZClothing\media\lua\shared\Definitions`
 
