@@ -9,8 +9,8 @@
 2. The next part is to make an addition to the `script.txt` file and import it into base. 
 
 For example, in the mod directory 
-`<\AuthenticZ\Contents\mods\Authentic Z + Custom Zombies\media\scripts\clothing>`
 in the script of `PZAZ_clothing_jacket.txt`: 
+`\mods\AuthenticZClothing\media\scripts\clothing\PZAZ_clothing_jacket.txt`
 
 ```
 module AuthenticZClothing {
@@ -41,7 +41,7 @@ module AuthenticZClothing {
 
 2. Connect the script with a new `.xml` clothing item (you refer its name id in its script file)
 
-`<\Authentic Z + Custom Zombies\media\clothing\clothingItems>` -> `Jacket_Grimes.xml`: 
+`\AuthenticZClothing\media\clothing\clothingItems` -> `Jacket_Grimes.xml`: 
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -151,9 +151,9 @@ ZombiesZoneDefinition.Police = {
 ```
 4. There are two other files that you can use to customize your zombie outfits - `HairOutfitDefinitions.lua` & `AttachedWeaponDefinitions.lua`
 Which you place later in this folder of the mod : 
-`\Authentic Z + Custom Zombies\media\lua\shared\Definitions`
 
 In `HairOutfitDefinitions.lua`, you can designate one specific haircut or a range of haircuts for that zombie outfit. 
 In `AttachedWeaponDefinitions.lua`, you can choose what items will spawn attached to the zombie for that outfit.  
 
+  `\AuthenticZClothing\media\lua\shared\Definitions`
 
