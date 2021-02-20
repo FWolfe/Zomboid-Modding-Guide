@@ -29,7 +29,7 @@ Used for 3d models of weapons, vehicles etc.
 #### media/textures/
 Icons, 3d model textures and the like go in here, in `.png` format. Pay attention to the naming scheme: Item icons should use the `Item_` prefix.
 
-#### media/sounds/
+#### media/sound/
 Sound files go in here, in `.wav` or `.ogg` format.
 
 #### media/lua/
