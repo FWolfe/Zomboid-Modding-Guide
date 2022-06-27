@@ -80,6 +80,8 @@ Of course you got to add distributions to it if you want it to appear in the wor
 
 3. The item will appear in inventory but appears invisible on character - this is probably because it did not get a new GUID table addition. And then of course, you got to give that clothing item an inventory icon, which you reference in the `/media/textures` file with `item_YourFile.png`.
 
+4. The GUID table, a reference file that the game uses for all clothing items, has not been created under the media folder. 
+This should be added under ..\media-> fileGuideTable.xml
 
 [//]: # "Extra"
 ### How to make custom clothing appear on zombies
