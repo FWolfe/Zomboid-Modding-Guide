@@ -59,7 +59,7 @@ This is your spawning point of the game, and inside of that folders contains:
         ├── description.txt 
         ├── title.txt  
 ```
-```description.txt``` This is the Map's description; you may translate it, but be cautious not to erase the ```<LINE>```
+```description.txt``` This is the Map's description; you may translate it, but be cautious not to modify [HTML ELEMENTS](https://www.w3schools.com/html/html_elements.asp)
 
 ```title.txt``` This is the title of the map.
 
