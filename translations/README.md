@@ -5,6 +5,7 @@
   * [Folder Structure](#folder-structure) 
   * [Functionalities](#functionalities)
     * [Folders](#folders)
+  * [Be Careful](#be-careful)
   * [Testing Translations Locally](#testing-translations-locally)
 
 ----------------------------------------
@@ -141,6 +142,21 @@ This file contains the language, what version and the encoding
 - ```credits.txt```
 
 This file contains credits the to authors.
+
+## Be Careful
+Writing and modifiying the indiviual txt files you should replace the ```[ Translation Name ]``` into two words such as: EN ( English ), PH ( Philippines )
+
+And also modify inside in file Example:
+It should change the "'PH"' to a language associated with the file name _[Translation Name].txt.
+```
+Challenge_PH = { 
+..................
+..................
+..................
+}
+```
+
+Make sure that you will not modify [HTML ELEMENTS](https://www.w3schools.com/html/html_elements.asp)
 
 ## Testing Translations Locally
 
