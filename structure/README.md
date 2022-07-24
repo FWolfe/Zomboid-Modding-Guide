@@ -11,6 +11,7 @@
     * [media/lua/](#medialua)
     * [media/lua/shared/](#medialuashared)
     * [media/lua/client/](#medialuaclient)
+    * [media/lua/server/](#medialuaserver)
 
 ----------------------------------------
 ## Overview
