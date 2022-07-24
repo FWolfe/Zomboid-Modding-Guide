@@ -4,6 +4,7 @@
   * [Overview](#overview)
     * [mod.info](#modinfo)
     * [media/](#media)
+    * [media/scripts/](#mediascripts)
 
 ----------------------------------------
 ## Overview
