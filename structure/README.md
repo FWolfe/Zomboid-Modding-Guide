@@ -8,6 +8,7 @@
     * [media/models/](#mediamodels)
     * [media/textures/](#mediatextures)
     * [media/sound/](#mediasound)
+    * [media/lua/](#medialua)
 
 ----------------------------------------
 ## Overview
