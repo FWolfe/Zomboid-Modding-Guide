@@ -5,6 +5,7 @@
     * [mod.info](#modinfo)
     * [media/](#media)
     * [media/scripts/](#mediascripts)
+    * [media/models/](#mediamodels)
 
 ----------------------------------------
 ## Overview
