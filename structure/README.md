@@ -10,6 +10,7 @@
     * [media/sound/](#mediasound)
     * [media/lua/](#medialua)
     * [media/lua/shared/](#medialuashared)
+    * [media/lua/client/](#medialuaclient)
 
 ----------------------------------------
 ## Overview
