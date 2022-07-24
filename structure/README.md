@@ -6,6 +6,8 @@
     * [media/](#media)
     * [media/scripts/](#mediascripts)
     * [media/models/](#mediamodels)
+    * [media/textures/](#mediatextures)
+    * [media/sound/](#mediasound)
 
 ----------------------------------------
 ## Overview
