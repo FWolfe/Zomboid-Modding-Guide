@@ -121,54 +121,63 @@ The evolved recipe is divided into two parts: the ```thing to be transformed``` 
 
 Example, making sandwich using breadslices:
 ```
+module Base {
+
 item BreadSlices
-{
- DisplayName = Bread Slices,
- DisplayCategory = Food,
- Type = Food,
- Weight = 0.1,
- Icon = BreadSlices,
- DaysFresh = 3,
- DaysTotallyRotten = 6,
- HungerChange = -10,
- Calories = 177,
- Carbohydrates = 33,
- Lipids = 2.22,
- Proteins = 5.9,
- WorldStaticModel = BreadSlices,
-}
+ {
+  DisplayName = Bread Slices,
+  DisplayCategory = Food,
+  Type = Food,
+  Weight = 0.1,
+  Icon = BreadSlices,
+  DaysFresh = 3,
+  DaysTotallyRotten = 6,
+  HungerChange = -10,
+  Calories = 177,
+  Carbohydrates = 33,
+  Lipids = 2.22,
+  Proteins = 5.9,
+  WorldStaticModel = BreadSlices,
+ }
 
 item Sandwich
-{
- DisplayName = Sandwich,
- DisplayCategory = Food,
- Type = Food,
- Weight = 0.2,
- Icon = Sandwich,
- DaysFresh = 3,
- DaysTotallyRotten = 6,
- HungerChange = -10,
- Calories = 360,
- Carbohydrates = 42,
- Lipids = 8.5,
- Proteins = 5.8,
- StaticModel = Sandwich,
- WorldStaticModel = CheeseSandwich,
+ {
+  DisplayName = Sandwich,
+  DisplayCategory = Food,
+  Type = Food,
+  Weight = 0.2,
+  Icon = Sandwich,
+  DaysFresh = 3,
+  DaysTotallyRotten = 6,
+  HungerChange = -10,
+  Calories = 360,
+  Carbohydrates = 42,
+  Lipids = 8.5,
+  Proteins = 5.8,
+  StaticModel = Sandwich,
+  WorldStaticModel = CheeseSandwich,
+ }
+
 }
 ```
 
 Evolved into Sandwich:
 
 ```
-evolvedrecipe Sandwich
-{
- BaseItem:BreadSlices,
- MaxItems:4,
- ResultItem:Sandwich,	
- Name:Make Sandwich,
-}
+module Base {
 
+evolvedrecipe Sandwich
+ {
+  BaseItem:BreadSlices,
+  MaxItems:4,
+  ResultItem:Sandwich,	
+  Name:Make Sandwich,
+ }
+
+}
 ```
+
+The ```ResultItem``` is the outcome of constructing Sandwiches with BreadSlices, and ```MaxItems``` is the total number of items made. ```BaseItem``` is the require item ( BreadSlice ) to make an Sandwich.
 
 ----------------------------------------
 ### The fixing block
@@ -184,6 +193,9 @@ fixing Fix Baseball Bat
  Fixer : Scotchtape=4,
 }
 ```
+
+```Require``` an item needs to repair. ```Fixer``` requirements to fix your item
+
 ----------------------------------------
 ### The sound block
 PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
