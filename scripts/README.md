@@ -120,7 +120,18 @@ Here you can see the ingredients are a knife and a fish. `keep` is declared befo
 
 ----------------------------------------
 ### The fixing block
+When fixing an item in Project Zomboid Build 41.72, you just need the repair item and the fixer; the template example as follows:
+```
+fixing Fix Baseball Bat
+{
+ Require : BaseballBat,
 
+ Fixer : Woodglue=2; Woodwork=2,
+ Fixer : DuctTape=2,
+ Fixer : Glue=2,
+ Fixer : Scotchtape=4,
+}
+```
 ----------------------------------------
 ### The sound block
 PZ build 40 introduced new audio code to deal with issues in multiplayer. All sounds now need to be defined in a `sound` block to have them heard by players farther then 20 tiles. Defining a sound here also includes it in PZ's options advanced audio tab.  
