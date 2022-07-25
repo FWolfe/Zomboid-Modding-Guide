@@ -5,7 +5,7 @@
   * [Folder Structure](#folder-structure) 
   * [Functionalities](#functionalities)
     * [Folders](#folders)
-  * [Be Careful](#be-careful)
+  * [Warning](#warning)
   * [Testing Translations Locally](#testing-translations-locally)
 
 ----------------------------------------
@@ -143,11 +143,11 @@ This file contains the language, what version and the encoding
 
 This file contains credits the to authors.
 
-## Be Careful
+## Warning
 Writing and modifiying the indiviual txt files you should replace the ```[ Translation Name ]``` into two words such as: EN ( English ), PH ( Philippines )
 
 And also modify inside in file Example:
-It should change the "'PH"' to a language associated with the file name _[Translation Name].txt.
+It should change the "'PH"' to a language associated with the file name ```_[Translation Name].txt```
 ```
 Challenge_PH = { 
 ..................

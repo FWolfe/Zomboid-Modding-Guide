@@ -117,9 +117,84 @@ Here you can see the ingredients are a knife and a fish. `keep` is declared befo
 
 ----------------------------------------
 ### The evolvedrecipe block
+The evolved recipe is divided into two parts: the ```thing to be transformed``` and the ```result of the transformation```; we need to create 2 items to do that.
+
+Example, making sandwich using breadslices:
+```
+module Base {
+
+item BreadSlices
+ {
+  DisplayName = Bread Slices,
+  DisplayCategory = Food,
+  Type = Food,
+  Weight = 0.1,
+  Icon = BreadSlices,
+  DaysFresh = 3,
+  DaysTotallyRotten = 6,
+  HungerChange = -10,
+  Calories = 177,
+  Carbohydrates = 33,
+  Lipids = 2.22,
+  Proteins = 5.9,
+  WorldStaticModel = BreadSlices,
+ }
+
+item Sandwich
+ {
+  DisplayName = Sandwich,
+  DisplayCategory = Food,
+  Type = Food,
+  Weight = 0.2,
+  Icon = Sandwich,
+  DaysFresh = 3,
+  DaysTotallyRotten = 6,
+  HungerChange = -10,
+  Calories = 360,
+  Carbohydrates = 42,
+  Lipids = 8.5,
+  Proteins = 5.8,
+  StaticModel = Sandwich,
+  WorldStaticModel = CheeseSandwich,
+ }
+
+}
+```
+
+Evolved into Sandwich:
+
+```
+module Base {
+
+evolvedrecipe Sandwich
+ {
+  BaseItem:BreadSlices,
+  MaxItems:4,
+  ResultItem:Sandwich,	
+  Name:Make Sandwich,
+ }
+
+}
+```
+
+The ```ResultItem``` is the outcome of constructing Sandwiches with BreadSlices, and ```MaxItems``` is the total number of items made. ```BaseItem``` is the require item ( BreadSlice ) to make an Sandwich.
 
 ----------------------------------------
 ### The fixing block
+When fixing an item in Project Zomboid Build 41.72, you just need the ```repair item``` and the ```fixer```; the template example as follows:
+```
+fixing Fix Baseball Bat
+{
+ Require : BaseballBat,
+
+ Fixer : Woodglue=2; Woodwork=2,
+ Fixer : DuctTape=2,
+ Fixer : Glue=2,
+ Fixer : Scotchtape=4,
+}
+```
+
+```Require``` an item needs to repair. ```Fixer``` requirements to fix your item
 
 ----------------------------------------
 ### The sound block
