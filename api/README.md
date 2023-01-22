@@ -289,7 +289,7 @@ To truly understand Zomboid's Java API, you need to peak 'under the hood'. For t
 
 Its worth mentioning that decompiling is not exact. The output code is going to  be slightly different then the code as it was originally written. That's because usually in a language there are multiple ways of writing the same thing, some are more optimized then others. Part of the compilers job is to optimize the code as it converts it to machine instruction. When you decompile you're working with this modified version of the original.
 
-There are multiple Java decompilers but the most commonly used and easiest to work with is [JD-GUI]()
+There are multiple Java decompilers but the most commonly used and easiest to work with is [JD-GUI](https://github.com/java-decompiler/jd-gui).
 
 #### Installing
 
