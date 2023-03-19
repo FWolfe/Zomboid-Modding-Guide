@@ -30,7 +30,22 @@ Lua is designed to be a simple and lightweight language, without a lot of bells 
 
 ----------------------------------------
 ### New To Programming
-**_TODO: Include a brief lua tutorial here, and links to more online._**
+If you're completely new to programming, Lua is a good first languae. It's relatively simple, has plenty of resources available online, and you can learn it while modding your favorite games. 
+
+First, install Lua:
+Windows: https://github.com/rjpcomputing/luaforwindows/releases
+MacOS: `brew install lua`
+
+Debian: `sudo apt install lua<VERSION>`
+RHEL: `yum install lua`
+Fedora: `dnf install lua`
+
+Traditionally, the first application written when learning a new language is called a Hello World. In Lua, this is quite simple. Create a new file name HelloWorld.lua, and add the following to it:
+`print("Hello World")`
+
+Then, in a terminal, navigate to that folder and type `lua HelloWorld.lua`
+
+If you see Hello World on the screen, you have correctly installed Lua and you're ready to continue.
 
 ----------------------------------------
 ### New To Lua
