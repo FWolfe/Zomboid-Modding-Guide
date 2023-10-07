@@ -210,7 +210,7 @@ Your mod can use the Lua `print` function to send messages to the console to hel
 LOG  : General     , 1696637683068> hello world
 ```
 
-The console log is also available as a text file, outside the game, at a path like: `C:\Users\USERNAME\Zomboid\console`
+The console log is also available as a text file, outside the game, at a path like: `C:\Users\USERNAME\Zomboid\console.txt`
 
 #### Reload Modified Files
 
