@@ -203,6 +203,9 @@ _**Note:**_ *many interface elements such as the mechanics window are listed in 
 
 `server/Vehicles/Vehicles.lua` contains callback functions in response to various vehicle events such as creation or update, mechanics callbacks on part installation or removal, and utility functions. Part condition on vehicle spawn, loss of condition while driving, fuel consumption and battery usage are a example of what can be modified here.
 
+#### Reload Modified Files
+
+You can reload modified files to reflect latest chanes within a live game session, without either restarting or reloading the world. In a debug-enabled game, press F11 and then use the bottom-right "Lua Files" window to find your modified script. Click "RELOAD" which appears when hovening over the script's name.
 
 ----------------------------------------
 ### Zomboid's API

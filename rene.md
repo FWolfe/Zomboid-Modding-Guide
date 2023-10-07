@@ -2,5 +2,7 @@
 
 Contribute the following to the guide
 
+1. finding mods - workshop dir
+1. enable debug mode
 1. debug output - printing from mods
-1. reloading mods - f11 to reload individual files? but those files don't match source? reload all files?
+1. :white_check_mark: reloading mods - f11 to reload individual files, don't know how to reload all of Lua
