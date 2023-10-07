@@ -12,7 +12,7 @@
     * [media/lua/shared/](#medialuashared)
     * [media/lua/client/](#medialuaclient)
     * [media/lua/server/](#medialuaserver)
-  * [Finding Mods on Disk](#findingmodsondisk)
+  * [Finding Mods on Disk](#finding-mods-on-disk)
 
 ----------------------------------------
 ## Overview
