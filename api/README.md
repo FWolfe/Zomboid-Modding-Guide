@@ -203,6 +203,18 @@ _**Note:**_ *many interface elements such as the mechanics window are listed in 
 
 `server/Vehicles/Vehicles.lua` contains callback functions in response to various vehicle events such as creation or update, mechanics callbacks on part installation or removal, and utility functions. Part condition on vehicle spawn, loss of condition while driving, fuel consumption and battery usage are a example of what can be modified here.
 
+#### Console Log
+Your mod can use the Lua `print` function to send messages to the console to help with debugging. For example, `print("hello world")` will generate a Console message that looks like: 
+
+```
+LOG  : General     , 1696637683068> hello world
+```
+
+The console log is also available as a text file, outside the game, at a path like: `C:\Users\USERNAME\Zomboid\console.txt`
+
+#### Reload Modified Files
+
+You can reload modified files to reflect latest chanes within a live game session, without either restarting or reloading the world. In a debug-enabled game, press F11 and then use the bottom-right "Lua Files" window to find your modified script. Click "RELOAD" which appears when hovening over the script's name.
 
 ----------------------------------------
 ### Zomboid's API

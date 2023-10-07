@@ -66,6 +66,11 @@ If your doing custom icons, textures, maps or 3d models you'll need one of these
 #### Custom Mapping:
 **_TODO: list tools used in mapping._**
 
+#### Debug Mode
+The game comes with a variety of tools to assist in mod development. You can enable these by adding the `-debug` command line option on startup.
+
+In Steam, you can add this under Properties / General / Launch Options.
+
 ----------------------------------------------------------------------------------
 
 ## Topics

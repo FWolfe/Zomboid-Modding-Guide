@@ -12,6 +12,7 @@
     * [media/lua/shared/](#medialuashared)
     * [media/lua/client/](#medialuaclient)
     * [media/lua/server/](#medialuaserver)
+  * [Finding Mods on Disk](#finding-mods-on-disk)
 
 ----------------------------------------
 ## Overview
@@ -54,3 +55,5 @@ Used for client-side scripts. UI elements, context menus timed actions and the l
 ##### ```media/lua/server/```
 Used for server-side scripts. Item spawning, core farming, weather and other server-side events. These only get loaded when the game is actually started (loading a save, starting a server, etc).
 
+## Finding Mods on Disk
+Mods are stored separate from the game, under the Steam workshop folder. On Windows, this looks like `C:\Program Files (x86)\Steam\workshop\content\108600`. Under this directory you'll find several numbered sud-directories, corresponding to the Steam Workshop IDs for each mod.
